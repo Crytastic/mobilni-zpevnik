@@ -11,7 +11,7 @@ class PreferencesScreen extends StatelessWidget {
         title: Text('preferences'.i18n()),
       ),
       body: Center(
-        child: Text('preferences-text'.i18n()),
+        child: Text('preferences-content'.i18n()),
       ),
     );
   }
