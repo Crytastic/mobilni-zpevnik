@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/localization.dart';
 
 import 'screens/main_screen.dart';
@@ -12,6 +13,9 @@ class SongbookApp extends StatelessWidget {
 
     return MaterialApp(
       localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
         LocalJsonLocalization.delegate,
       ],
       supportedLocales: const [
