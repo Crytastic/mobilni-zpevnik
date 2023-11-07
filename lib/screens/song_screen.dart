@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
+import 'package:mobilni_zpevnik/utils/song_parser.dart';
 
 class SongScreen extends StatelessWidget {
   final Song song;
@@ -41,13 +42,7 @@ class SongScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Text(
-              song.content,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
+            SongParser(songContent: song.content),
           ],
         ),
       ),
