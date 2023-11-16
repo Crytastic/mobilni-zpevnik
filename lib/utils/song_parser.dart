@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart'; // This is needed for the Colors and Text widgets
+import 'package:flutter/material.dart';
 
 class SongParser extends StatelessWidget {
   final String songContent;
