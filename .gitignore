@@ -31,3 +31,9 @@ doc/api/
 
 # Android Studio related
 .idea
+
+scraper/node_modules/
+
+scraper/pnpm-lock.yaml
+
+.vscode/
