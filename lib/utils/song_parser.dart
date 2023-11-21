@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobilni_zpevnik/widgets/chord_image.dart';
+import 'package:mobilni_zpevnik/widgets/chord_button.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 
 class SongParser extends StatelessWidget {
@@ -9,8 +9,7 @@ class SongParser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool darkTheme = Theme.of(context).brightness == Brightness.dark;
-    return parseLyrics(darkTheme: darkTheme);
+    return parseLyrics();
   }
 
   bool _isChordLine(String line) {
@@ -31,28 +30,15 @@ class SongParser extends StatelessWidget {
     return pattern.allMatches(input).map((match) => match.group(0)!).toList();
   }
 
-  List<Widget> _parseChordLine(String line, bool darkTheme) {
+  List<Widget> _parseChordLine(String line) {
     return _splitWordsAndSpaces(line)
         .map((String part) => part.contains(RegExp(r'\S'))
-            ? SuperTooltip(
-                popupDirection: TooltipDirection.up,
-                showBarrier: false,
-                hideTooltipOnTap: true,
-                content: ChordImage(chord: part),
-                child: Container(
-                  padding: const EdgeInsets.all(2.0),
-                  color: Colors.white12,
-                  child: Text(
-                    part,
-                    style: TextStyle(
-                        color: (darkTheme ? Colors.white : Colors.black)),
-                  ),
-                ))
+            ? ChordButton(chord: part)
             : Text(part))
         .toList();
   }
 
-  Widget parseLyrics({required bool darkTheme}) {
+  Widget parseLyrics() {
     List<String> lines = songContent.split('\n');
     List<Widget> columnWidgets = [];
     bool showChords = true;
@@ -62,7 +48,7 @@ class SongParser extends StatelessWidget {
         // This line contains chords, render them in grey boxes
         columnWidgets.add(
           Row(
-            children: _parseChordLine(line, darkTheme),
+            children: _parseChordLine(line),
           ),
         );
       } else if (!_isChordLine(line)) {
