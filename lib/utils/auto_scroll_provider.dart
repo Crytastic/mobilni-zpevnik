@@ -3,6 +3,15 @@ import 'package:flutter/material.dart';
 class AutoScrollProvider extends ChangeNotifier {
   final ScrollController scrollController = ScrollController();
 
+  AutoScrollProvider() {
+    // Adding a listener to react to user scrolls while auto-scrolling
+    scrollController.addListener(_userScrollListener);
+  }
+
+  void _userScrollListener() {
+    notifyListeners();
+  }
+
   bool get isScrolling =>
       scrollController.hasClients &&
       scrollController.position.isScrollingNotifier.value;
@@ -12,13 +21,13 @@ class AutoScrollProvider extends ChangeNotifier {
   }
 
   void _startAutoScroll() async {
-    double endPosition = scrollController.position.maxScrollExtent;
-    double currentPosition = scrollController.position.pixels;
-    double positionDelta = endPosition - currentPosition;
-    Duration animDuration =
+    final double endPosition = scrollController.position.maxScrollExtent;
+    final double currentPosition = scrollController.position.pixels;
+    final double positionDelta = endPosition - currentPosition;
+    final Duration animDuration =
         Duration(milliseconds: (positionDelta * 100).round());
 
-    scrollController.animateTo(
+    await scrollController.animateTo(
       endPosition,
       duration: animDuration,
       curve: Curves.linear,
