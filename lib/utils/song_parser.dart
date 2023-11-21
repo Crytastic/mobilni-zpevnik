@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobilni_zpevnik/widgets/chord_image.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 
 class SongParser extends StatelessWidget {
@@ -37,10 +38,7 @@ class SongParser extends StatelessWidget {
                 popupDirection: TooltipDirection.up,
                 showBarrier: false,
                 hideTooltipOnTap: true,
-                content: Image(
-                    width: 80,
-                    image: AssetImage(
-                        'images/chords/${darkTheme ? "white" : "black"}/$part.png')),
+                content: ChordImage(chord: part),
                 child: Container(
                   padding: const EdgeInsets.all(2.0),
                   color: Colors.white12,
