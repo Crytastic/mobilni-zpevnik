@@ -8,7 +8,8 @@ class SongParser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return parseLyrics();
+    bool darkTheme = Theme.of(context).brightness == Brightness.dark;
+    return parseLyrics(darkTheme: darkTheme);
   }
 
   bool _isChordLine(String line) {
@@ -29,7 +30,7 @@ class SongParser extends StatelessWidget {
     return pattern.allMatches(input).map((match) => match.group(0)!).toList();
   }
 
-  List<Widget> _parseChordLine(String line) {
+  List<Widget> _parseChordLine(String line, bool darkTheme) {
     return _splitWordsAndSpaces(line)
         .map((String part) => part.contains(RegExp(r'\S'))
             ? SuperTooltip(
@@ -38,20 +39,22 @@ class SongParser extends StatelessWidget {
                 hideTooltipOnTap: true,
                 content: Image(
                     width: 80,
-                    image: AssetImage('images/chords/white/$part.png')),
+                    image: AssetImage(
+                        'images/chords/${darkTheme ? "white" : "black"}/$part.png')),
                 child: Container(
                   padding: const EdgeInsets.all(2.0),
                   color: Colors.white12,
                   child: Text(
                     part,
-                    style: const TextStyle(color: Colors.white),
+                    style: TextStyle(
+                        color: (darkTheme ? Colors.white : Colors.black)),
                   ),
                 ))
             : Text(part))
         .toList();
   }
 
-  Widget parseLyrics() {
+  Widget parseLyrics({required bool darkTheme}) {
     List<String> lines = songContent.split('\n');
     List<Widget> columnWidgets = [];
     bool showChords = true;
@@ -61,7 +64,7 @@ class SongParser extends StatelessWidget {
         // This line contains chords, render them in grey boxes
         columnWidgets.add(
           Row(
-            children: _parseChordLine(line),
+            children: _parseChordLine(line, darkTheme),
           ),
         );
       } else if (!_isChordLine(line)) {
