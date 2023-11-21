@@ -36,8 +36,9 @@ class SongParser extends StatelessWidget {
                 popupDirection: TooltipDirection.up,
                 showBarrier: false,
                 hideTooltipOnTap: true,
-                content:
-                    Image(image: AssetImage('images/chords/white/$part.png')),
+                content: Image(
+                    width: 80,
+                    image: AssetImage('images/chords/white/$part.png')),
                 child: Container(
                   padding: const EdgeInsets.all(2.0),
                   color: Colors.white12,
