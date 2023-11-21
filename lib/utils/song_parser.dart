@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:super_tooltip/super_tooltip.dart';
 
 class SongParser extends StatelessWidget {
   final String songContent;
@@ -31,14 +32,18 @@ class SongParser extends StatelessWidget {
   List<Widget> _parseChordLine(String line) {
     return _splitWordsAndSpaces(line)
         .map((String part) => part.contains(RegExp(r'\S'))
-            ? Container(
-                padding: const EdgeInsets.all(2.0),
-                color: Colors.white12,
-                child: Text(
-                  part,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              )
+            ? SuperTooltip(
+                popupDirection: TooltipDirection.up,
+                // showBarrier: false,
+                content: const Image(image: AssetImage('images/chords/D.png')),
+                child: Container(
+                  padding: const EdgeInsets.all(2.0),
+                  color: Colors.white12,
+                  child: Text(
+                    part,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ))
             : Text(part))
         .toList();
   }
