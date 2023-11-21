@@ -34,7 +34,8 @@ class SongParser extends StatelessWidget {
         .map((String part) => part.contains(RegExp(r'\S'))
             ? SuperTooltip(
                 popupDirection: TooltipDirection.up,
-                // showBarrier: false,
+                showBarrier: false,
+                hideTooltipOnTap: true,
                 content: const Image(image: AssetImage('images/chords/D.png')),
                 child: Container(
                   padding: const EdgeInsets.all(2.0),
