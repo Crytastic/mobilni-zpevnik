@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/localization.dart';
+import 'package:mobilni_zpevnik/utils/auto_scroll_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'bars/bottom_navigation_bar_provider.dart';
@@ -17,6 +18,9 @@ class SongbookApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<BottomNavigationBarProvider>(
           create: (_) => BottomNavigationBarProvider(),
+        ),
+        ChangeNotifierProvider<AutoScrollProvider>(
+          create: (_) => AutoScrollProvider(),
         ),
       ],
       child: MaterialApp(

@@ -1,11 +1,18 @@
+import 'package:flutter/material.dart';
+
 class Chord {
-  String id;
   String name;
-  String chordPicture;
 
   Chord({
-    required this.id,
     required this.name,
-    required this.chordPicture,
   });
+
+  String getChordName() {
+    return name;
+  }
+
+  AssetImage getImage(bool darkTheme) {
+    return AssetImage(
+        'images/chords/${darkTheme ? "white" : "black"}/$name.png');
+  }
 }
