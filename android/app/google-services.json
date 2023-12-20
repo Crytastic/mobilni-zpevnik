@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "506092231511",
+    "project_id": "mobilni-zpevnik",
+    "storage_bucket": "mobilni-zpevnik.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506092231511:android:3f422bdf37ce22b0537c12",
+        "android_client_info": {
+          "package_name": "com.example.mobilni_zpevnik"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd5y3ukckksqFQDwwf4PvEM43Bx2AVSkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobilni_zpevnik/widgets/chord_button.dart';
-import 'package:super_tooltip/super_tooltip.dart';
 
 class SongParser extends StatelessWidget {
   final String songContent;
@@ -13,12 +12,12 @@ class SongParser extends StatelessWidget {
   }
 
   bool _isChordLine(String line) {
-    String notes = '[CDEFGAB]';
-    String accidentals = '(b|bb)?';
-    String chords = '(m|mi|maj7|maj|min7|min|sus)?';
-    String suspends = '(1|2|3|4|5|6|7|8|9)?';
-    String sharp = '(#)?';
-    String chordPattern =
+    const String notes = '[CDEFGAB]';
+    const String accidentals = '(b|bb)?';
+    const String chords = '(m|mi|maj7|maj|min7|min|sus)?';
+    const String suspends = '(1|2|3|4|5|6|7|8|9)?';
+    const String sharp = '(#)?';
+    const String chordPattern =
         notes + accidentals + chords + suspends + sharp + r'\b';
     RegExp chordRegex = RegExp(chordPattern);
 
@@ -39,9 +38,9 @@ class SongParser extends StatelessWidget {
   }
 
   Widget parseLyrics() {
-    List<String> lines = songContent.split('\n');
-    List<Widget> columnWidgets = [];
-    bool showChords = true;
+    final List<String> lines = songContent.split('\n');
+    final List<Widget> columnWidgets = [];
+    const bool showChords = true;
 
     for (String line in lines) {
       if (_isChordLine(line) && showChords) {
