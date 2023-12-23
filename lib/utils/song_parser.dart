@@ -38,7 +38,7 @@ class SongParser extends StatelessWidget {
   }
 
   Widget parseLyrics() {
-    final List<String> lines = songContent.split('\n');
+    final List<String> lines = songContent.split("\\n");
     final List<Widget> columnWidgets = [];
     const bool showChords = true;
 

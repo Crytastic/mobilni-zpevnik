@@ -25,23 +25,7 @@ class SongScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
-              'Artists: ${song.artists.join(', ')}',
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Albums: ${song.albums.join(', ')}',
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Genre: ${song.genre}',
+              'Artist: ${song.artist}',
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
