@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
-import 'package:mobilni_zpevnik/screens/song_screen.dart';
 import 'package:mobilni_zpevnik/service/song_service.dart';
+import 'package:mobilni_zpevnik/widgets/song_tile.dart';
+import 'package:mobilni_zpevnik/widgets/song_list.dart';
 
 class SearchTab extends StatefulWidget {
   const SearchTab({Key? key}) : super(key: key);
@@ -35,45 +35,27 @@ class _SearchTabState extends State<SearchTab> {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    final Color oddItemColor = colorScheme.primary.withOpacity(0.05);
-    final Color evenItemColor = colorScheme.primary.withOpacity(0.15);
-
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            controller: _searchController,
-            decoration: const InputDecoration(
-              hintText: 'Search',
-              prefixIcon: Icon(Icons.search),
-            ),
-            onChanged: (query) => _onSearchChanged(query),
-          ),
-        ),
+        _buildSearchBar(),
         Expanded(
-          child: ListView.builder(
-            itemCount: _filteredSongs.length,
-            itemBuilder: (BuildContext context, int index) {
-              final song = _filteredSongs[index];
-
-              return ListTile(
-                tileColor: index.isOdd ? oddItemColor : evenItemColor,
-                title: Text('${song.name} - ${song.artist}'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SongScreen(song: song),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
+          child: SongList(songs: _filteredSongs),
         ),
       ],
+    );
+  }
+
+  Widget _buildSearchBar() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        controller: _searchController,
+        decoration: const InputDecoration(
+          hintText: 'Search',
+          prefixIcon: Icon(Icons.search),
+        ),
+        onChanged: (query) => _onSearchChanged(query),
+      ),
     );
   }
 
