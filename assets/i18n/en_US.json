@@ -6,5 +6,12 @@
   "song-suggestion": "Song suggestion",
   "search": "Search",
   "home": "Home",
-  "songbooks": "Songbooks"
+  "songbooks": "Songbooks",
+  "login": "Login",
+  "login-directive": "Please login to continue",
+  "username": "Username",
+  "password": "Password",
+  "forgot-password": "Forgot password?",
+  "sign-in": "Sign in",
+  "or": "Or"
 }

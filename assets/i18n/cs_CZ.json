@@ -6,5 +6,12 @@
   "song-suggestion": "Návrh písničky",
   "search": "Hledat",
   "home": "Domů",
-  "songbooks": "Zpěvníky"
+  "songbooks": "Zpěvníky",
+  "login": "Přihlášení",
+  "login-directive": "Prosím přihlašte se",
+  "username": "Přihlašovací jméno",
+  "password": "Heslo",
+  "forgot-password": "Zapomenuté heslo?",
+  "sign-in": "Přihlásit se",
+  "or": "Nebo"
 }
