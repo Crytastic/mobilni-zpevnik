@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/service/song_service.dart';
-import 'package:mobilni_zpevnik/widgets/song_tile.dart';
 import 'package:mobilni_zpevnik/widgets/song_list.dart';
 
 class SearchTab extends StatefulWidget {

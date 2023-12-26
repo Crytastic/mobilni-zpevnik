@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 
 class SongService {
-  final _songCollection = FirebaseFirestore.instance.collection('songs').withConverter(
+  final _songCollection =
+      FirebaseFirestore.instance.collection('songs').withConverter(
     fromFirestore: (snapshot, options) {
       final json = snapshot.data() ?? {};
       json['id'] = snapshot.id;
@@ -15,9 +16,9 @@ class SongService {
     },
   );
 
-  Stream<List<Song>> get songsStream => _songCollection
-      .snapshots()
-      .map((querySnapshot) => querySnapshot.docs.map((docSnapshot) => docSnapshot.data()).toList());
+  Stream<List<Song>> get songsStream =>
+      _songCollection.snapshots().map((querySnapshot) =>
+          querySnapshot.docs.map((docSnapshot) => docSnapshot.data()).toList());
 
   Future<void> createSong(Song song) {
     return _songCollection.add(song);
