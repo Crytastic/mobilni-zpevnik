@@ -4,6 +4,11 @@ class LoginErrorProvider extends ChangeNotifier {
   String? emailErrorMessage;
   String? passwordErrorMessage;
 
+  void clearErrorMessages() {
+    emailErrorMessage = null;
+    passwordErrorMessage = null;
+  }
+
   void setEmailErrorMessage(String message) {
     emailErrorMessage = message;
     notifyListeners();

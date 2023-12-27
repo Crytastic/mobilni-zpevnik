@@ -10,16 +10,21 @@ import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
 import 'package:mobilni_zpevnik/widgets/common_button.dart';
 import 'package:mobilni_zpevnik/widgets/custom_divider.dart';
 import 'package:provider/provider.dart';
+import 'package:mobilni_zpevnik/widgets/gap.dart';
 
-import '../widgets/gap.dart';
+import 'package:mobilni_zpevnik/screens/auth_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+  final VoidCallback swapForRegisterScreen;
+
+  LoginScreen({super.key, required this.swapForRegisterScreen});
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   void _signUserIn(LoginErrorProvider loginErrorProvider) async {
+    loginErrorProvider.clearErrorMessages();
+
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
@@ -104,7 +109,7 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(width: 4),
                     CommonTextButton(
                       text: 'register-now'.i18n(),
-                      route: RegisterScreen(),
+                      onPressed: swapForRegisterScreen,
                     ),
                   ],
                 )

@@ -3,17 +3,18 @@ import 'package:localization/localization.dart';
 
 class CommonTextButton extends StatelessWidget {
   final text;
-  final route;
+  final onPressed;
 
   const CommonTextButton({
     super.key,
     this.text,
-    this.route,
+    this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onPressed,
       child: Text(
         text,
         style: const TextStyle(
@@ -21,14 +22,6 @@ class CommonTextButton extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      onTap: () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => route,
-          ),
-        );
-      },
     );
   }
 }

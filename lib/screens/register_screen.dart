@@ -12,25 +12,36 @@ import 'package:mobilni_zpevnik/screens/login_screen.dart';
 import 'package:mobilni_zpevnik/widgets/custom_divider.dart';
 
 class RegisterScreen extends StatelessWidget {
-  RegisterScreen({super.key});
+  final VoidCallback swapForLoginScreen;
+
+  RegisterScreen({super.key, required this.swapForLoginScreen});
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   void _signUserUp(LoginErrorProvider loginErrorProvider) async {
+    loginErrorProvider.clearErrorMessages();
+
+    if (passwordController.text != confirmPasswordController.text) {
+      loginErrorProvider.setPasswordErrorMessage("Passwords do not match.");
+      return;
+    }
+
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-email') {
-        loginErrorProvider.setEmailErrorMessage("Invalid e-mail.");
-      } else if (e.code == 'invalid-credential') {
-        loginErrorProvider.setPasswordErrorMessage(
-            "Wrong password. Try again or click Forgot password to reset it.");
-      } else if (e.code == 'missing-password') {
+      if (e.code == 'missing-password') {
         loginErrorProvider.setPasswordErrorMessage("Missing password.");
+      } else if (e.code == 'weak-password') {
+        loginErrorProvider
+            .setPasswordErrorMessage("This password is too weak.");
+      } else if (e.code == 'email-already-in-use') {
+        loginErrorProvider
+            .setEmailErrorMessage("This e-mail is already in use.");
       }
     }
   }
@@ -69,7 +80,7 @@ class RegisterScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 25),
                 CommonTextField(
-                  controller: passwordController,
+                  controller: confirmPasswordController,
                   hintText: 'confirm-password'.i18n(),
                   obscureText: true,
                   errorText: loginErrorProvider.passwordErrorMessage,
@@ -102,7 +113,7 @@ class RegisterScreen extends StatelessWidget {
                     const SizedBox(width: 4),
                     CommonTextButton(
                       text: 'login'.i18n(),
-                      route: LoginScreen(),
+                      onPressed: swapForLoginScreen,
                     ),
                   ],
                 )
