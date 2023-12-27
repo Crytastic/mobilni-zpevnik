@@ -99,6 +99,7 @@ class RegisterScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CommonSquareButton(
+                      onTap: null,
                       imagePath: "assets/images/google-logo.png",
                     )
                   ],

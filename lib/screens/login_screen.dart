@@ -4,6 +4,7 @@ import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/screens/login_error_notifier.dart';
 import 'package:mobilni_zpevnik/screens/register_screen.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
+import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'package:mobilni_zpevnik/widgets/common_square_button.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_button.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
@@ -91,10 +92,11 @@ class LoginScreen extends StatelessWidget {
                 const Gap(),
                 const CustomDivider(),
                 const Gap(),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CommonSquareButton(
+                      onTap: () => AuthService().signInWithGoogle(),
                       imagePath: "assets/images/google-logo.png",
                     )
                   ],
