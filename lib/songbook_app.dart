@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/localization.dart';
+import 'package:mobilni_zpevnik/screens/login_error_notifier.dart';
 import 'package:mobilni_zpevnik/utils/auto_scroll_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,9 @@ class SongbookApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<AutoScrollProvider>(
           create: (_) => AutoScrollProvider(),
+        ),
+        ChangeNotifierProvider<LoginErrorProvider>(
+          create: (_) => LoginErrorProvider(),
         ),
       ],
       child: MaterialApp(

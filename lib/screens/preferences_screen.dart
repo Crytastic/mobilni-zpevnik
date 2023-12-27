@@ -13,8 +13,6 @@ class PreferencesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
-
     return AuthScreen(
       child: ScreenTemplate(
         appBar: AppBar(
@@ -29,7 +27,7 @@ class PreferencesScreen extends StatelessWidget {
             ),
             ListTile(
               title: Text('logout'.i18n()),
-              subtitle: Text(user?.email ?? ''),
+              subtitle: Text(FirebaseAuth.instance.currentUser?.email ?? ''),
               onTap: _signUserOut,
             ),
           ],

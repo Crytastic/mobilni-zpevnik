@@ -6,6 +6,7 @@ class CommonTextField extends StatelessWidget {
   final bool obscureText;
   final Widget? prefixIcon;
   final ValueChanged<String>? onChanged;
+  final String? errorText;
 
   const CommonTextField({
     super.key,
@@ -14,6 +15,7 @@ class CommonTextField extends StatelessWidget {
     this.controller,
     this.prefixIcon,
     this.onChanged,
+    this.errorText,
   });
 
   @override
@@ -24,6 +26,7 @@ class CommonTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: prefixIcon,
+        errorText: errorText,
       ),
       onChanged: onChanged,
     );
