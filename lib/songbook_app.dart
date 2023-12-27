@@ -12,7 +12,7 @@ class SongbookApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LocalJsonLocalization.delegate.directories = ['i18n'];
+    LocalJsonLocalization.delegate.directories = ['assets/i18n'];
 
     return MultiProvider(
       providers: [
