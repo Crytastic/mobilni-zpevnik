@@ -10,11 +10,16 @@
   "login": "Přihlášení",
   "login-directive": "Prosím přihlašte se",
   "username": "Přihlašovací jméno",
+  "e-mail": "E-mail",
   "password": "Heslo",
+  "confirm-password": "Confirm password",
   "forgot-password": "Zapomenuté heslo?",
   "sign-in": "Přihlásit se",
+  "sign-up": "Vytvořit účet",
   "or": "Nebo",
   "no-account": "Nemáte účet?",
-  "register": "Zaregistrujte se",
-  "logout": "Odhlásit"
+  "register-now": "Vytvořit účet",
+  "logout": "Odhlásit",
+  "have-account": "Už máte účet?",
+  "login-now": "Přihlásit se"
 }

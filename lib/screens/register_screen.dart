@@ -2,24 +2,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/screens/login_error_notifier.dart';
-import 'package:mobilni_zpevnik/screens/register_screen.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:mobilni_zpevnik/widgets/common_square_button.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_button.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
 import 'package:mobilni_zpevnik/widgets/common_button.dart';
-import 'package:mobilni_zpevnik/widgets/custom_divider.dart';
 import 'package:provider/provider.dart';
+import 'package:mobilni_zpevnik/screens/login_screen.dart';
+import 'package:mobilni_zpevnik/widgets/custom_divider.dart';
 
-import '../widgets/gap.dart';
-
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen({super.key});
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void _signUserIn(LoginErrorProvider loginErrorProvider) async {
+  void _signUserUp(LoginErrorProvider loginErrorProvider) async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
@@ -44,7 +42,7 @@ class LoginScreen extends StatelessWidget {
 
     return ScreenTemplate(
       appBar: AppBar(
-        title: Text('login-now'.i18n()),
+        title: Text('register-now'.i18n()),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -53,39 +51,39 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Gap(),
-                Text('login-directive'.i18n()),
-                const Gap(),
+                const SizedBox(height: 25),
+                Text('register-directive'.i18n()),
+                const SizedBox(height: 25),
                 CommonTextField(
                   controller: emailController,
                   hintText: 'e-mail'.i18n(),
                   obscureText: false,
                   errorText: loginErrorProvider.emailErrorMessage,
                 ),
-                const Gap(),
+                const SizedBox(height: 25),
                 CommonTextField(
                   controller: passwordController,
                   hintText: 'password'.i18n(),
                   obscureText: true,
                   errorText: loginErrorProvider.passwordErrorMessage,
                 ),
-                const Gap(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('forgot-password'.i18n()),
-                  ],
+                const SizedBox(height: 25),
+                CommonTextField(
+                  controller: passwordController,
+                  hintText: 'confirm-password'.i18n(),
+                  obscureText: true,
+                  errorText: loginErrorProvider.passwordErrorMessage,
                 ),
-                const Gap(),
+                const SizedBox(height: 25),
                 CommonButton(
                   onPressed: () {
-                    _signUserIn(loginErrorProvider);
+                    _signUserUp(loginErrorProvider);
                   },
-                  label: 'sign-in'.i18n(),
+                  label: 'sign-up'.i18n(),
                 ),
-                const Gap(),
+                const SizedBox(height: 25),
                 const CustomDivider(),
-                const Gap(),
+                const SizedBox(height: 25),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -94,17 +92,17 @@ class LoginScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                const Gap(),
+                const SizedBox(height: 25),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'no-account'.i18n(),
+                      'have-account'.i18n(),
                     ),
                     const SizedBox(width: 4),
                     CommonTextButton(
-                      text: 'register-now'.i18n(),
-                      route: RegisterScreen(),
+                      text: 'login'.i18n(),
+                      route: LoginScreen(),
                     ),
                   ],
                 )

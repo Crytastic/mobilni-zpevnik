@@ -9,12 +9,18 @@
   "songbooks": "Songbooks",
   "login": "Login",
   "login-directive": "Please login to continue",
+  "register-directive": "Please create an account to continue",
   "username": "Username",
+  "e-mail": "E-mail",
   "password": "Password",
+  "confirm-password": "Confirm password",
   "forgot-password": "Forgot password?",
   "sign-in": "Sign in",
+  "sign-up": "Sign up",
   "or": "Or",
   "no-account": "Don't have an account?",
-  "register": "Register now",
-  "logout": "Log out"
+  "register-now": "Register now",
+  "logout": "Log out",
+  "have-account": "Already have an account?",
+  "login-now": "Log in now"
 }
