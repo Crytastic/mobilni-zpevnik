@@ -13,5 +13,8 @@
   "password": "Heslo",
   "forgot-password": "Zapomenuté heslo?",
   "sign-in": "Přihlásit se",
-  "or": "Nebo"
+  "or": "Nebo",
+  "no-account": "Nemáte účet?",
+  "register": "Zaregistrujte se",
+  "logout": "Odhlásit"
 }

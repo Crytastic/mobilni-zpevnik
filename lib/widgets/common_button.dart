@@ -11,6 +11,7 @@ class CommonButton extends StatelessWidget {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return SizedBox(
+      width: double.infinity,
       height: 50,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(

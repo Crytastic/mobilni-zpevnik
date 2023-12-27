@@ -1,17 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
+import 'package:mobilni_zpevnik/widgets/common_square_button.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
-
 import 'package:mobilni_zpevnik/widgets/common_button.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void _signUserIn() {}
+  void _signUserIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: emailController.text,
+      password: passwordController.text,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +29,13 @@ class LoginScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 25),
               Text('login-directive'.i18n()),
               const SizedBox(height: 25),
               CommonTextField(
-                controller: usernameController,
+                controller: emailController,
                 hintText: 'username'.i18n(),
                 obscureText: false,
               ),
@@ -53,6 +59,32 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               _buildDivider(),
+              const SizedBox(height: 25),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CommonSquareButton(
+                    imagePath: "assets/images/google-logo.png",
+                  )
+                ],
+              ),
+              const SizedBox(height: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'no-account'.i18n(),
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    'register'.i18n(),
+                    style: const TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

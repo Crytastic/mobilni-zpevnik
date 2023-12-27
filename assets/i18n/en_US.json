@@ -13,5 +13,8 @@
   "password": "Password",
   "forgot-password": "Forgot password?",
   "sign-in": "Sign in",
-  "or": "Or"
+  "or": "Or",
+  "no-account": "Don't have an account?",
+  "register": "Register now",
+  "logout": "Log out"
 }
