@@ -6,13 +6,11 @@ import 'bottom_sheet_menu.dart';
 class SongTile extends StatelessWidget {
   final Song song;
   final int index;
-  final Function(String) onOptionSelected;
 
   const SongTile({
     Key? key,
     required this.song,
     required this.index,
-    required this.onOptionSelected,
   }) : super(key: key);
 
   @override
@@ -27,7 +25,7 @@ class SongTile extends StatelessWidget {
       subtitle: Text(song.artist),
       trailing: GestureDetector(
         onTap: () {
-          _showBottomSheetMenu(context);
+          BottomSheetMenu.show(context, song);
         },
         child: const Icon(Icons.more_vert),
       ),
@@ -37,18 +35,6 @@ class SongTile extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => SongScreen(song: song),
           ),
-        );
-      },
-    );
-  }
-
-  void _showBottomSheetMenu(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return BottomSheetMenu(
-          song: song,
-          onOptionSelected: (String) {},
         );
       },
     );

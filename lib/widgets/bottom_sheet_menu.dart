@@ -1,46 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
-import 'gap.dart';
+import 'package:mobilni_zpevnik/screens/add_to_songbook_screen.dart';
 
 class BottomSheetMenu extends StatelessWidget {
   final Song song;
-  final Function(String) onOptionSelected;
 
   const BottomSheetMenu({
     Key? key,
-    required this.onOptionSelected,
     required this.song,
   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
+  static void show(BuildContext context, Song song) {
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
+          topLeft: Radius.circular(10.0),
+          topRight: Radius.circular(10.0),
         ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(height: 8.0),
-          _buildSwipeIndicator(),
-          ListTile(
-            title: Text(song.name),
-            subtitle: Text(song.artist),
-          ),
-          const Divider(height: 1),
-          ListTile(
-            leading: const Icon(Icons.add_circle_rounded),
-            title: Text('add-to-songbook'.i18n()),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      ),
+      context: context,
+      builder: (BuildContext context) {
+        return BottomSheetMenu(
+          song: song,
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(height: 8.0),
+        _buildSwipeIndicator(),
+        ListTile(
+          title: Text(song.name),
+          subtitle: Text(song.artist),
+        ),
+        const Divider(height: 1),
+        ListTile(
+          leading: const Icon(Icons.add_circle_rounded),
+          title: Text('add-to-songbook'.i18n()),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddToSongbookScreen(song: song),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 

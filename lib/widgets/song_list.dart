@@ -15,7 +15,6 @@ class SongList extends StatelessWidget {
         return SongTile(
           song: songs[index],
           index: index,
-          onOptionSelected: (String) {},
         );
       },
     );

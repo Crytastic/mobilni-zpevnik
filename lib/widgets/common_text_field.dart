@@ -12,7 +12,7 @@ class CommonTextField extends StatelessWidget {
     super.key,
     required this.hintText,
     this.obscureText = false,
-    this.controller,
+    required this.controller,
     this.prefixIcon,
     this.onChanged,
     this.errorText,
