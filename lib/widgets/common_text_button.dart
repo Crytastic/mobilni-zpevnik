@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:localization/localization.dart';
 
 class CommonTextButton extends StatelessWidget {
   final text;

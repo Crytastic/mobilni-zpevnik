@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/screens/login_error_notifier.dart';
-import 'package:mobilni_zpevnik/screens/register_screen.dart';
+import 'package:mobilni_zpevnik/screens/reset_password_screen.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'package:mobilni_zpevnik/widgets/common_square_button.dart';
@@ -12,8 +12,7 @@ import 'package:mobilni_zpevnik/widgets/common_button.dart';
 import 'package:mobilni_zpevnik/widgets/custom_divider.dart';
 import 'package:provider/provider.dart';
 import 'package:mobilni_zpevnik/widgets/gap.dart';
-
-import 'package:mobilni_zpevnik/screens/auth_screen.dart';
+import 'package:mobilni_zpevnik/widgets/progress_indicator.dart';
 
 class LoginScreen extends StatelessWidget {
   final VoidCallback swapForRegisterScreen;
@@ -23,8 +22,10 @@ class LoginScreen extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void _signUserIn(LoginErrorProvider loginErrorProvider) async {
+  void _signUserIn(
+      BuildContext context, LoginErrorProvider loginErrorProvider) async {
     loginErrorProvider.clearErrorMessages();
+    ProgressDialog.show(context);
 
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -32,14 +33,24 @@ class LoginScreen extends StatelessWidget {
         password: passwordController.text,
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-email') {
-        loginErrorProvider.setEmailErrorMessage("Invalid e-mail.");
-      } else if (e.code == 'invalid-credential') {
-        loginErrorProvider.setPasswordErrorMessage(
-            "Wrong password. Try again or click Forgot password to reset it.");
-      } else if (e.code == 'missing-password') {
-        loginErrorProvider.setPasswordErrorMessage("Missing password.");
+      final String code = e.code;
+      switch (code)
+      {
+        case 'invalid-email':
+          loginErrorProvider.setEmailErrorMessage(code.i18n());
+          break;
+        case 'invalid-credential':
+        case 'missing-password':
+          loginErrorProvider.setPasswordErrorMessage(code.i18n());
+          break;
+        default:
+          loginErrorProvider.setEmailErrorMessage(code);
+          break;
       }
+    }
+
+    if (context.mounted){
+      ProgressDialog.hide(context);
     }
   }
 
@@ -57,7 +68,6 @@ class LoginScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Gap(),
                 Text('login-directive'.i18n()),
@@ -79,13 +89,24 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('forgot-password'.i18n()),
+                    CommonTextButton(
+                      text: 'forgot-password'.i18n(),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ResetPasswordScreen(
+                                email: emailController.text),
+                          ),
+                        );
+                      },
+                    )
                   ],
                 ),
                 const Gap(),
                 CommonButton(
                   onPressed: () {
-                    _signUserIn(loginErrorProvider);
+                    _signUserIn(context, loginErrorProvider);
                   },
                   label: 'sign-in'.i18n(),
                 ),

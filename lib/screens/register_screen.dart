@@ -8,8 +8,11 @@ import 'package:mobilni_zpevnik/widgets/common_text_button.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
 import 'package:mobilni_zpevnik/widgets/common_button.dart';
 import 'package:provider/provider.dart';
-import 'package:mobilni_zpevnik/screens/login_screen.dart';
 import 'package:mobilni_zpevnik/widgets/custom_divider.dart';
+
+import 'package:mobilni_zpevnik/widgets/gap.dart';
+
+import '../widgets/progress_indicator.dart';
 
 class RegisterScreen extends StatelessWidget {
   final VoidCallback swapForLoginScreen;
@@ -20,8 +23,9 @@ class RegisterScreen extends StatelessWidget {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  void _signUserUp(LoginErrorProvider loginErrorProvider) async {
+  void _signUserUp(BuildContext context, LoginErrorProvider loginErrorProvider) async {
     loginErrorProvider.clearErrorMessages();
+    ProgressDialog.show(context);
 
     if (passwordController.text != confirmPasswordController.text) {
       loginErrorProvider.setPasswordErrorMessage("Passwords do not match.");
@@ -34,15 +38,24 @@ class RegisterScreen extends StatelessWidget {
         password: passwordController.text,
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'missing-password') {
-        loginErrorProvider.setPasswordErrorMessage("Missing password.");
-      } else if (e.code == 'weak-password') {
-        loginErrorProvider
-            .setPasswordErrorMessage("This password is too weak.");
-      } else if (e.code == 'email-already-in-use') {
-        loginErrorProvider
-            .setEmailErrorMessage("This e-mail is already in use.");
+      final String code = e.code;
+      switch (code)
+      {
+        case 'email-already-in-use':
+          loginErrorProvider.setEmailErrorMessage(code.i18n());
+          break;
+        case 'weak-password':
+        case 'missing-password':
+          loginErrorProvider.setPasswordErrorMessage(code.i18n());
+          break;
+        default:
+          loginErrorProvider.setEmailErrorMessage(code);
+          break;
       }
+
+    }
+    if (context.mounted){
+      ProgressDialog.hide(context);
     }
   }
 
@@ -60,41 +73,40 @@ class RegisterScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 25),
+                const Gap(),
                 Text('register-directive'.i18n()),
-                const SizedBox(height: 25),
+                const Gap(),
                 CommonTextField(
                   controller: emailController,
                   hintText: 'e-mail'.i18n(),
                   obscureText: false,
                   errorText: loginErrorProvider.emailErrorMessage,
                 ),
-                const SizedBox(height: 25),
+                const Gap(),
                 CommonTextField(
                   controller: passwordController,
                   hintText: 'password'.i18n(),
                   obscureText: true,
                   errorText: loginErrorProvider.passwordErrorMessage,
                 ),
-                const SizedBox(height: 25),
+                const Gap(),
                 CommonTextField(
                   controller: confirmPasswordController,
                   hintText: 'confirm-password'.i18n(),
                   obscureText: true,
                   errorText: loginErrorProvider.passwordErrorMessage,
                 ),
-                const SizedBox(height: 25),
+                const Gap(),
                 CommonButton(
                   onPressed: () {
-                    _signUserUp(loginErrorProvider);
+                    _signUserUp(context, loginErrorProvider);
                   },
                   label: 'sign-up'.i18n(),
                 ),
-                const SizedBox(height: 25),
+                const Gap(),
                 const CustomDivider(),
-                const SizedBox(height: 25),
+                const Gap(),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -104,7 +116,7 @@ class RegisterScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                const SizedBox(height: 25),
+                const Gap(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

@@ -21,5 +21,11 @@
   "register-now": "Vytvořit účet",
   "logout": "Odhlásit",
   "have-account": "Už máte účet?",
-  "login-now": "Přihlásit se"
+  "login-now": "Přihlásit se",
+  "reset-password": "Resetovat heslo",
+  "invalid-email": "Nevalidní e-mail",
+  "invalid-credential": "Špatné heslo. Zkus znova nebo klikni na Zapomenuté heslo pro reset hesla.",
+  "missing-password": "Chybějící heslo.",
+  "email-already-in-use": "Účet s tímto e-mailem už existuje.",
+  "weak-password": "Tohle heslo je příliš slabé."
 }
