@@ -28,5 +28,6 @@
   "invalid-credential": "Wrong password. Try again or click Forgot password to reset it.",
   "missing-password": "Missing password.",
   "email-already-in-use": "This e-mail is already in use.",
-  "weak-password": "This password is too weak."
+  "weak-password": "This password is too weak.",
+  "add-to-songbook": "Add to songbook"
 }
