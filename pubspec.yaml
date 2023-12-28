@@ -43,6 +43,9 @@ dependencies:
   cloud_firestore: ^4.13.6
   get_it: ^7.6.4
   json_annotation: ^4.8.1
+  firebase: ^9.0.3
+  firebase_auth: ^4.15.3
+  google_sign_in: ^6.1.6
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +78,7 @@ flutter:
   assets:
     - assets/i18n/cs_CZ.json
     - assets/i18n/en_US.json
+    - assets/images/google-logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/service/song_service.dart';
 import 'package:mobilni_zpevnik/widgets/song_list.dart';
+
+import '../widgets/common_text_field.dart';
 
 class SearchTab extends StatefulWidget {
   const SearchTab({Key? key}) : super(key: key);
@@ -47,12 +50,10 @@ class _SearchTabState extends State<SearchTab> {
   Widget _buildSearchBar() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: TextField(
+      child: CommonTextField(
         controller: _searchController,
-        decoration: const InputDecoration(
-          hintText: 'Search',
-          prefixIcon: Icon(Icons.search),
-        ),
+        hintText: 'search'.i18n(),
+        prefixIcon: const Icon(Icons.search),
         onChanged: (query) => _onSearchChanged(query),
       ),
     );
