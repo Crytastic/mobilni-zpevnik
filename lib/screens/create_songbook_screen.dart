@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:mobilni_zpevnik/widgets/common_button.dart';
@@ -15,6 +16,12 @@ class CreateSongbookScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    songbookNameController.text = '${'songbook'.i18n()} name';
+    songbookNameController.selection = TextSelection(
+      baseOffset: 0,
+      extentOffset: songbookNameController.text.length,
+    );
+
     return ScreenTemplate(
       appBar: AppBar(
         title: const Text('Create Songbook'),
@@ -30,7 +37,7 @@ class CreateSongbookScreen extends StatelessWidget {
               const Gap(),
               CommonTextField(
                 controller: songbookNameController,
-                hintText: 'Songbook Name',
+                hintText: 'Songbook name',
               ),
               const Gap(),
               Row(

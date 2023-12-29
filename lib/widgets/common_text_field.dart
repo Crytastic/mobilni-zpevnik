@@ -29,6 +29,7 @@ class CommonTextField extends StatelessWidget {
         errorText: errorText,
       ),
       onChanged: onChanged,
+      autofocus: true,
     );
   }
 }

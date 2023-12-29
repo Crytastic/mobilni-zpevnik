@@ -23,7 +23,9 @@ class SongbookScreen extends StatelessWidget {
           Text('${FirebaseAuth.instance.currentUser?.email}'),
           const SizedBox(height: 8.0),
           const Divider(height: 1),
-          SongList(songs: songbook.songs),
+          Expanded(
+            child: SongList(songs: songbook.songs),
+          )
         ],
       ),
     );
