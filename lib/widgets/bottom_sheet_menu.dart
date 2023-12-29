@@ -5,13 +5,28 @@ import 'package:mobilni_zpevnik/screens/add_to_songbook_screen.dart';
 
 class BottomSheetMenu extends StatelessWidget {
   final Song song;
+  final bool canAddToSongbook;
+  final bool canRemoveFromSongbook;
+  final VoidCallback? onAddToSongbookTap;
+  final Function(Song song)? onRemoveFromSongbookTap;
 
   const BottomSheetMenu({
     Key? key,
     required this.song,
+    this.canAddToSongbook = true,
+    this.canRemoveFromSongbook = false,
+    this.onAddToSongbookTap,
+    this.onRemoveFromSongbookTap,
   }) : super(key: key);
 
-  static void show(BuildContext context, Song song) {
+  static void show(
+    BuildContext context,
+    Song song, {
+    bool canAddToSongbook = false,
+    bool canRemoveFromSongbook = false,
+    VoidCallback? onAddToSongbookTap,
+    Function(Song song)? onRemoveFromSongbookTap,
+  }) {
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -23,6 +38,10 @@ class BottomSheetMenu extends StatelessWidget {
       builder: (BuildContext context) {
         return BottomSheetMenu(
           song: song,
+          canAddToSongbook: canAddToSongbook,
+          canRemoveFromSongbook: canRemoveFromSongbook,
+          onAddToSongbookTap: onAddToSongbookTap,
+          onRemoveFromSongbookTap: onRemoveFromSongbookTap,
         );
       },
     );
@@ -40,18 +59,20 @@ class BottomSheetMenu extends StatelessWidget {
           subtitle: Text(song.artist),
         ),
         const Divider(height: 1),
-        ListTile(
-          leading: const Icon(Icons.add_circle_rounded),
-          title: Text('add-to-songbook'.i18n()),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AddToSongbookScreen(song: song),
-              ),
-            );
-          },
-        ),
+        if (canAddToSongbook)
+          ListTile(
+            leading: const Icon(Icons.add_circle_rounded),
+            title: Text('add-to-songbook'.i18n()),
+            onTap: onAddToSongbookTap,
+          ),
+        if (canRemoveFromSongbook)
+          ListTile(
+            leading: const Icon(Icons.remove_circle_rounded),
+            title: Text('remove-from-songbook'.i18n()),
+            onTap: onRemoveFromSongbookTap != null
+                ? () => onRemoveFromSongbookTap!(song)
+                : null,
+          ),
       ],
     );
   }

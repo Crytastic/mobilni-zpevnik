@@ -23,11 +23,9 @@ class SongbookService {
     },
   );
 
-  // A subject to hold the stream of songbooks
   final _songbooksSubject = BehaviorSubject<List<Songbook>>();
 
   SongbookService() {
-    // Initialize the stream and connect it to the _songbooksSubject
     _songbookCollection
         .snapshots()
         .map((querySnapshot) => querySnapshot.docs
@@ -63,6 +61,19 @@ class SongbookService {
         print('Song with ID ${song.id} already exists in the songbook.');
       }
     }
+  }
+
+  Future<void> removeSongFromSongbook(
+      String? songbookId, String? songId) async {
+    final songbookReference = _songbookCollection.doc(songbookId);
+
+    final songbookSnapshot = await songbookReference.get();
+    final existingSongs =
+        List<Map<String, dynamic>>.from(songbookSnapshot['songs']);
+
+    existingSongs.removeWhere((song) => song['id'] == songId);
+
+    await songbookReference.update({'songs': existingSongs});
   }
 
   Future<void> deleteSongbook(String songbookId) {

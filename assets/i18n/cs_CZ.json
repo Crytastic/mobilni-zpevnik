@@ -28,5 +28,6 @@
   "missing-password": "Chybějící heslo.",
   "email-already-in-use": "Účet s tímto e-mailem už existuje.",
   "weak-password": "Tohle heslo je příliš slabé.",
-  "add-to-songbook": "Přidat do zpěvníku"
+  "add-to-songbook": "Přidat do zpěvníku",
+  "remove-from-songbook": "Odstranit ze zpěvníku"
 }
