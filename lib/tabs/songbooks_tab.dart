@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:localization/localization.dart';
+import 'package:mobilni_zpevnik/widgets/songbook_list.dart';
+import 'package:mobilni_zpevnik/models/songbook.dart';
+import 'package:mobilni_zpevnik/widgets/songbooks_stream_builder.dart';
 
 class SongbooksTab extends StatelessWidget {
   const SongbooksTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    final Color oddItemColor = colorScheme.primary.withOpacity(0.05);
-    final Color evenItemColor = colorScheme.primary.withOpacity(0.15);
-
-    return ListView.builder(
-      itemCount: 25,
-      itemBuilder: (BuildContext context, int index) {
-        return ListTile(
-          tileColor: index.isOdd ? oddItemColor : evenItemColor,
-          title: Text('${'songbook'.i18n()} $index'),
-        );
+    return SongbooksStreamBuilder(
+      builder: (BuildContext context, List<Songbook> songbooks) {
+        return SongbookList(songbooks: songbooks);
       },
     );
   }

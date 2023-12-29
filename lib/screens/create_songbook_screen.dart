@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';

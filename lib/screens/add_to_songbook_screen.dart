@@ -8,7 +8,9 @@ import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/service/songbook_service.dart';
 import 'package:mobilni_zpevnik/models/songbook.dart';
+import 'package:mobilni_zpevnik/widgets/songbook_list.dart';
 
+import '../widgets/songbooks_stream_builder.dart';
 import 'create_songbook_screen.dart';
 
 class AddToSongbookScreen extends StatelessWidget {
@@ -39,52 +41,40 @@ class AddToSongbookScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Add to Songbook'),
         ),
-        body: Column(
-          children: [
-            ListTile(
-              title: const Text('Create New Songbook'),
-              onTap: () {
-                _openCreateSongbookScreen(context);
-              },
-            ),
-            const Divider(
-              height: 1,
-            ),
-            StreamBuilder<List<Songbook>>(
-              stream: _songbookService.songbooksStream,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Center(child: Text(snapshot.error.toString()));
-                }
-                if (!snapshot.hasData) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-
-                final songbooks = snapshot.data!;
-                songbooks.sort((a, b) {
-                  return a.name.toLowerCase().compareTo(b.name.toLowerCase());
-                });
-
-                if (songbooks.isEmpty) {
-                  return const Center(child: Text('No songsbooks available.'));
-                }
-
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: songbooks.length,
-                  itemBuilder: (context, index) {
-                    var songbook = songbooks[index];
-                    return ListTile(
-                      title: Text(songbook.name),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                    );
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topCenter,
+                child: ListTile(
+                  title: const Text('Create New Songbook'),
+                  onTap: () {
+                    _openCreateSongbookScreen(context);
                   },
-                );
-              },
-            ),
-          ],
+                ),
+              ),
+              const Divider(
+                height: 1,
+              ),
+              SongbooksStreamBuilder(
+                builder: (BuildContext context, List<Songbook> songbooks) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: songbooks.length,
+                    itemBuilder: (context, index) {
+                      var songbook = songbooks[index];
+                      return ListTile(
+                        title: Text(songbook.name),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

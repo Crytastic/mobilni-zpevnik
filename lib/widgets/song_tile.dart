@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/screens/song_screen.dart';
 import 'bottom_sheet_menu.dart';
+import 'colored_tile.dart';
 
 class SongTile extends StatelessWidget {
   final Song song;
@@ -15,12 +16,8 @@ class SongTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    final Color oddItemColor = colorScheme.primary.withOpacity(0.05);
-    final Color evenItemColor = colorScheme.primary.withOpacity(0.15);
-
-    return ListTile(
-      tileColor: index.isOdd ? oddItemColor : evenItemColor,
+    return ColoredTile(
+      index: index,
       title: Text(song.name),
       subtitle: Text(song.artist),
       trailing: GestureDetector(

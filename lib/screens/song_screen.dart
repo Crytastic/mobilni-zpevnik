@@ -47,37 +47,5 @@ class SongScreen extends StatelessWidget {
         ),
       ),
     );
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(song.name),
-      ),
-      body: SingleChildScrollView(
-        controller: autoScrollProvider.scrollController,
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(
-              'Artist: ${song.artist}',
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
-            SongParser(songContent: song.content),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: autoScrollProvider.toggleAutoScroll,
-        child: Icon(
-          autoScrollProvider.isScrolling
-              ? Icons.stop_rounded
-              : Icons.arrow_downward_rounded,
-        ),
-      ),
-    );
   }
 }

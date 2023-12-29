@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/models/songbook.dart';
+import 'package:rxdart/rxdart.dart';
 
 class SongbookService {
   final _songbookCollection = FirebaseFirestore.instance
@@ -21,9 +22,21 @@ class SongbookService {
     },
   );
 
-  Stream<List<Songbook>> get songbooksStream =>
-      _songbookCollection.snapshots().map((querySnapshot) =>
-          querySnapshot.docs.map((docSnapshot) => docSnapshot.data()).toList());
+  // A subject to hold the stream of songbooks
+  final _songbooksSubject = BehaviorSubject<List<Songbook>>();
+
+  SongbookService() {
+    // Initialize the stream and connect it to the _songbooksSubject
+    _songbookCollection.snapshots().map((querySnapshot) =>
+        querySnapshot.docs.map((docSnapshot) => docSnapshot.data()).toList())
+        .publishValue()
+        .autoConnect()
+        .listen((songbooks) {
+      _songbooksSubject.add(songbooks);
+    });
+  }
+
+  Stream<List<Songbook>> get songbooksStream => _songbooksSubject.stream;
 
   Future<void> createSongbook(Songbook songbook) {
     return _songbookCollection.add(songbook);

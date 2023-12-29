@@ -21,9 +21,9 @@ class MainScreen extends StatelessWidget {
       bottomBar: const BottomBar(),
       body: IndexedStack(
         index: bottomBarProvider.currentIndex,
-        children: const [
-          HomeTab(),
-          SearchTab(),
+        children: [
+          const HomeTab(),
+          const SearchTab(),
           SongbooksTab(),
         ],
       ),
