@@ -4,8 +4,7 @@ import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:mobilni_zpevnik/widgets/common_button.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
-
-import '../widgets/gap.dart';
+import 'package:mobilni_zpevnik/widgets/gap.dart';
 
 class CreateSongbookScreen extends StatelessWidget {
   final Function(String name, List<Song> songs) onCreate;
@@ -55,7 +54,7 @@ class CreateSongbookScreen extends StatelessWidget {
                     label: 'Create',
                     onPressed: () {
                       onCreate(songbookNameController.text, []);
-                      Navigator.pop(context);
+                      Navigator.popUntil(context, (route) => route.isFirst);
                     },
                   ),
                 ],

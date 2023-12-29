@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/models/songbook.dart';
 import 'package:rxdart/rxdart.dart';
@@ -27,8 +28,11 @@ class SongbookService {
 
   SongbookService() {
     // Initialize the stream and connect it to the _songbooksSubject
-    _songbookCollection.snapshots().map((querySnapshot) =>
-        querySnapshot.docs.map((docSnapshot) => docSnapshot.data()).toList())
+    _songbookCollection
+        .snapshots()
+        .map((querySnapshot) => querySnapshot.docs
+            .map((docSnapshot) => docSnapshot.data())
+            .toList())
         .publishValue()
         .autoConnect()
         .listen((songbooks) {
@@ -42,17 +46,23 @@ class SongbookService {
     return _songbookCollection.add(songbook);
   }
 
-  Future<void> addSongToSongbook(String songbookId, Song song) {
-    final songbookRef = _songbookCollection.doc(songbookId);
-    return FirebaseFirestore.instance.runTransaction((transaction) async {
-      final songbookSnapshot = await transaction.get(songbookRef);
-      if (songbookSnapshot.exists) {
-        final currentSongs = List<Map<String, dynamic>>.from(
-            songbookSnapshot.data()?.songs ?? []);
-        currentSongs.add(song.toJson());
-        transaction.update(songbookRef, {'songs': currentSongs});
+  Future<void> addSongToSongbook(String songbookId, Song song) async {
+    final songbookReference = _songbookCollection.doc(songbookId);
+
+    final songbookSnapshot = await songbookReference.get();
+    final existingSongs =
+        List<Map<String, dynamic>>.from(songbookSnapshot['songs']);
+
+    final songExists =
+        existingSongs.any((existingSong) => existingSong['id'] == song.id);
+    if (!songExists) {
+      existingSongs.add(song.toJson());
+      await songbookReference.update({'songs': existingSongs});
+    } else {
+      if (kDebugMode) {
+        print('Song with ID ${song.id} already exists in the songbook.');
       }
-    });
+    }
   }
 
   Future<void> deleteSongbook(String songbookId) {

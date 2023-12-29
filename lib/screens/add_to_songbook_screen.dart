@@ -20,10 +20,16 @@ class AddToSongbookScreen extends StatelessWidget {
   AddToSongbookScreen({Key? key, required this.song}) : super(key: key);
 
   void _createNewSongbook(String name, List<Song> songs) async {
+    var songbook = Songbook(name: name, songs: songs);
     await _songbookService.createSongbook(Songbook(name: name, songs: songs));
+    _addSongToSongbook(songbook.id);
   }
 
-  void _openCreateSongbookScreen(BuildContext context) {
+  void _addSongToSongbook(String? songbookId) async {
+    await _songbookService.addSongToSongbook(songbookId!, song);
+  }
+
+  void _openCreateSongbookScreen(BuildContext context, Song song) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -49,7 +55,7 @@ class AddToSongbookScreen extends StatelessWidget {
                 child: ListTile(
                   title: const Text('Create New Songbook'),
                   onTap: () {
-                    _openCreateSongbookScreen(context);
+                    _openCreateSongbookScreen(context, song);
                   },
                 ),
               ),
@@ -66,7 +72,8 @@ class AddToSongbookScreen extends StatelessWidget {
                       return ListTile(
                         title: Text(songbook.name),
                         onTap: () {
-                          Navigator.pop(context);
+                          _addSongToSongbook(songbook.id);
+                          Navigator.popUntil(context, (route) => route.isFirst);
                         },
                       );
                     },
