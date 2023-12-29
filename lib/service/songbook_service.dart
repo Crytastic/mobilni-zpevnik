@@ -42,11 +42,11 @@ class SongbookService {
 
   Stream<List<Songbook>> get songbooksStream => _songbooksSubject.stream;
 
-  Future<void> createSongbook(Songbook songbook) {
+  Future<DocumentReference> createSongbook(Songbook songbook) {
     return _songbookCollection.add(songbook);
   }
 
-  Future<void> addSongToSongbook(String songbookId, Song song) async {
+  Future<void> addSongToSongbook(String? songbookId, Song song) async {
     final songbookReference = _songbookCollection.doc(songbookId);
 
     final songbookSnapshot = await songbookReference.get();

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:localization/localization.dart';
@@ -20,13 +21,16 @@ class AddToSongbookScreen extends StatelessWidget {
   AddToSongbookScreen({Key? key, required this.song}) : super(key: key);
 
   void _createNewSongbook(String name, List<Song> songs) async {
-    var songbook = Songbook(name: name, songs: songs);
-    await _songbookService.createSongbook(Songbook(name: name, songs: songs));
-    _addSongToSongbook(songbook.id);
-  }
+    try {
+      var songbook = Songbook(name: name, songs: songs);
+      var songbookReference = await _songbookService.createSongbook(songbook);
 
-  void _addSongToSongbook(String? songbookId) async {
-    await _songbookService.addSongToSongbook(songbookId!, song);
+      await _songbookService.addSongToSongbook(songbookReference.id, song);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error creating songbook: $e');
+      }
+    }
   }
 
   void _openCreateSongbookScreen(BuildContext context, Song song) {
@@ -72,7 +76,7 @@ class AddToSongbookScreen extends StatelessWidget {
                       return ListTile(
                         title: Text(songbook.name),
                         onTap: () {
-                          _addSongToSongbook(songbook.id);
+                          _songbookService.addSongToSongbook(songbook.id, song);
                           Navigator.popUntil(context, (route) => route.isFirst);
                         },
                       );
