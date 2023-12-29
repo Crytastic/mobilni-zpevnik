@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
-import 'package:mobilni_zpevnik/screens/song_screen.dart';
+import 'package:mobilni_zpevnik/screens/songbook_screen.dart';
 import '../models/songbook.dart';
-import 'bottom_sheet_menu.dart';
 import 'colored_tile.dart';
 
 class SongbookTile extends StatelessWidget {
@@ -21,7 +20,14 @@ class SongbookTile extends StatelessWidget {
       index: index,
       title: Text(songbook.name),
       subtitle: Text('${songbook.songs.length} songs'),
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SongbookScreen(songbook: songbook),
+          ),
+        );
+      },
     );
   }
 }
