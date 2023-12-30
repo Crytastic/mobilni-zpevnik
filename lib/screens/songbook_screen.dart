@@ -9,6 +9,7 @@ import 'package:mobilni_zpevnik/models/songbook.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/service/songbook_service.dart';
 import 'package:mobilni_zpevnik/widgets/bottom_sheet_menu.dart';
+import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 
 class SongbookScreen extends StatelessWidget {
   final Songbook songbook;
@@ -59,13 +60,13 @@ class SongbookScreen extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 8.0),
+              const SmallGap(),
               _buildSongbookName(),
-              const SizedBox(height: 8.0),
+              const SmallGap(),
               _buildUserName(),
-              const SizedBox(height: 8.0),
+              const SmallGap(),
               _buildNumberOfSongs(),
-              const SizedBox(height: 8.0),
+              const SmallGap(),
             ],
           ),
           IconButton(

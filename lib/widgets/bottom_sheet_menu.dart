@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/widgets/menu_option.dart';
+import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 
 class BottomSheetMenu extends StatelessWidget {
   final Widget menuHeader;
@@ -33,7 +33,7 @@ class BottomSheetMenu extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const SizedBox(height: 8.0),
+        const SmallGap(),
         _buildSwipeIndicator(),
         menuHeader,
         const Divider(height: 1),

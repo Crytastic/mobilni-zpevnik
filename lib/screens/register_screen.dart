@@ -9,10 +9,8 @@ import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
 import 'package:mobilni_zpevnik/widgets/common_button.dart';
 import 'package:provider/provider.dart';
 import 'package:mobilni_zpevnik/widgets/custom_divider.dart';
-
-import 'package:mobilni_zpevnik/widgets/gap.dart';
-
-import '../widgets/progress_indicator.dart';
+import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
+import 'package:mobilni_zpevnik/widgets/progress_indicator.dart';
 
 class RegisterScreen extends StatelessWidget {
   final VoidCallback swapForLoginScreen;
@@ -23,7 +21,8 @@ class RegisterScreen extends StatelessWidget {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  void _signUserUp(BuildContext context, LoginErrorProvider loginErrorProvider) async {
+  void _signUserUp(
+      BuildContext context, LoginErrorProvider loginErrorProvider) async {
     loginErrorProvider.clearErrorMessages();
     ProgressDialog.show(context);
 
@@ -39,8 +38,7 @@ class RegisterScreen extends StatelessWidget {
       );
     } on FirebaseAuthException catch (e) {
       final String code = e.code;
-      switch (code)
-      {
+      switch (code) {
         case 'email-already-in-use':
           loginErrorProvider.setEmailErrorMessage(code.i18n());
           break;
@@ -52,9 +50,8 @@ class RegisterScreen extends StatelessWidget {
           loginErrorProvider.setEmailErrorMessage(code);
           break;
       }
-
     }
-    if (context.mounted){
+    if (context.mounted) {
       ProgressDialog.hide(context);
     }
   }
