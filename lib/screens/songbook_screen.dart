@@ -42,28 +42,11 @@ class SongbookScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 8.0),
-              Text(
-                songbook.name,
-                style: const TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              _buildSongbookName(),
               const SizedBox(height: 8.0),
-              Row(
-                children: [
-                  const Icon(Icons.account_circle_rounded),
-                  const SizedBox(width: 8.0),
-                  Text(
-                    '${FirebaseAuth.instance.currentUser?.displayName}',
-                  ),
-                ],
-              ),
+              _buildUserName(),
               const SizedBox(height: 8.0),
-              Text(
-                'Number of Songs: ${songbook.songs.length}',
-                style: const TextStyle(color: Colors.grey),
-              ),
+              _buildNumberOfSongs(),
               const SizedBox(height: 8.0),
             ],
           ),
@@ -74,6 +57,35 @@ class SongbookScreen extends StatelessWidget {
             },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildNumberOfSongs() {
+    return Text(
+      'Number of Songs: ${songbook.songs.length}',
+      style: const TextStyle(color: Colors.grey),
+    );
+  }
+
+  Widget _buildUserName() {
+    return Row(
+      children: [
+        const Icon(Icons.account_circle_rounded),
+        const SizedBox(width: 8.0),
+        Text(
+          '${FirebaseAuth.instance.currentUser?.displayName}',
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSongbookName() {
+    return Text(
+      songbook.name,
+      style: const TextStyle(
+        fontSize: 16.0,
+        fontWeight: FontWeight.bold,
       ),
     );
   }
