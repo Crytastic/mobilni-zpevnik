@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/screens/song_screen.dart';
-import 'bottom_sheet_menu.dart';
-import 'colored_tile.dart';
-import 'menu_option.dart';
+import 'package:mobilni_zpevnik/widgets/bottom_sheet_menu.dart';
+import 'package:mobilni_zpevnik/widgets/colored_tile.dart';
+import 'package:mobilni_zpevnik/widgets/menu_option.dart';
+import 'package:mobilni_zpevnik/service/songbook_service.dart';
 
 class SongTile extends StatelessWidget {
   final Song song;
@@ -13,8 +15,9 @@ class SongTile extends StatelessWidget {
   final bool canRemoveFromSongbook;
   final VoidCallback? onAddToSongbookTap;
   final Function(Song song)? onRemoveFromSongbookTap;
+  final _songbookService = GetIt.I<SongbookService>();
 
-  const SongTile({
+  SongTile({
     Key? key,
     required this.song,
     required this.index,
@@ -23,6 +26,11 @@ class SongTile extends StatelessWidget {
     this.onAddToSongbookTap,
     this.onRemoveFromSongbookTap,
   }) : super(key: key);
+
+  Future<void> _addToFavorites() async {
+    final String favoritesId = await _songbookService.getFavoritesSongbookId();
+    await _songbookService.addSongToSongbook(favoritesId, song);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +41,13 @@ class SongTile extends StatelessWidget {
           title: 'add-to-songbook'.i18n(),
           onTap: onAddToSongbookTap,
         ),
+      MenuOption(
+          icon: Icons.favorite,
+          title: 'add-to-favorites'.i18n(),
+          onTap: () {
+            _addToFavorites;
+            Navigator.pop(context);
+          }),
       if (canRemoveFromSongbook)
         MenuOption(
           icon: Icons.remove_circle_rounded,

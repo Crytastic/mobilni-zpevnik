@@ -31,5 +31,6 @@
   "weak-password": "This password is too weak.",
   "add-to-songbook": "Add to songbook",
   "remove-from-songbook": "Remove from songbook",
-  "delete-songbook": "Delete songbook"
+  "delete-songbook": "Delete songbook",
+  "add-to-favorites": "Add to favorites"
 }
