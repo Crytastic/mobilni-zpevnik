@@ -76,7 +76,7 @@ class SongbookService {
     await songbookReference.update({'songs': existingSongs});
   }
 
-  Future<void> deleteSongbook(String songbookId) {
+  Future<void> deleteSongbook(String? songbookId) {
     return _songbookCollection.doc(songbookId).delete();
   }
 }

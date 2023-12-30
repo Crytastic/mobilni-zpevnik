@@ -1,11 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
+import 'package:mobilni_zpevnik/widgets/menu_option.dart';
 import 'package:mobilni_zpevnik/widgets/song_list.dart';
 import 'package:mobilni_zpevnik/models/songbook.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/service/songbook_service.dart';
+import 'package:mobilni_zpevnik/widgets/bottom_sheet_menu.dart';
 
 class SongbookScreen extends StatelessWidget {
   final Songbook songbook;
@@ -17,14 +20,28 @@ class SongbookScreen extends StatelessWidget {
     _songbookService.removeSongFromSongbook(songbook.id, song.id);
   }
 
+  void _removeSongbook(Songbook songbook) {
+    _songbookService.deleteSongbook(songbook.id);
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<MenuOption> menuOptions = [
+      MenuOption(
+          icon: Icons.delete_rounded,
+          title: 'delete-songbook'.i18n(),
+          onTap: () {
+            _removeSongbook(songbook);
+            Navigator.popUntil(context, (route) => route.isFirst);
+          }),
+    ];
+
     return ScreenTemplate(
       appBar: AppBar(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSongbookHeader(context),
+          _buildSongbookHeader(context, menuOptions),
           const Divider(height: 1),
           _buildSongbookListOfSongs(),
         ],
@@ -32,7 +49,8 @@ class SongbookScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSongbookHeader(BuildContext context) {
+  Widget _buildSongbookHeader(
+      BuildContext context, List<MenuOption> menuOptions) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
@@ -53,7 +71,16 @@ class SongbookScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.more_vert),
             onPressed: () {
-              Navigator.pop(context);
+              BottomSheetMenu.show(
+                context,
+                ListTile(
+                  title: Text(songbook.name),
+                  subtitle: Text(
+                    '${FirebaseAuth.instance.currentUser?.displayName}',
+                  ),
+                ),
+                menuOptions,
+              );
             },
           ),
         ],
