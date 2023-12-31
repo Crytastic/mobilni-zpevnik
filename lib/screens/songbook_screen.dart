@@ -97,13 +97,13 @@ class SongbookScreen extends StatelessWidget {
   }
 
   Widget _buildUserName() {
+    final user = FirebaseAuth.instance.currentUser;
+
     return Row(
       children: [
         const Icon(Icons.account_circle_rounded),
         const SizedBox(width: 8.0),
-        Text(
-          '${FirebaseAuth.instance.currentUser?.displayName}',
-        ),
+        Text(user?.displayName ?? user?.email ?? "Anonymous"),
       ],
     );
   }

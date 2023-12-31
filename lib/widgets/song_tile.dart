@@ -42,12 +42,13 @@ class SongTile extends StatelessWidget {
           onTap: onAddToSongbookTap,
         ),
       MenuOption(
-          icon: Icons.favorite,
-          title: 'add-to-favorites'.i18n(),
-          onTap: () {
-            _addToFavorites;
-            Navigator.pop(context);
-          }),
+        icon: Icons.favorite,
+        title: 'add-to-favorites'.i18n(),
+        onTap: () {
+          _addToFavorites;
+          Navigator.pop(context);
+        },
+      ),
       if (canRemoveFromSongbook)
         MenuOption(
           icon: Icons.remove_circle_rounded,
