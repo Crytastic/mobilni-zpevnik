@@ -81,12 +81,6 @@ class SongbookService {
   }
 
   Future<String> getFavoritesSongbookId() async {
-    final currentUserUid = FirebaseAuth.instance.currentUser?.uid;
-
-    if (currentUserUid == null) {
-      return Future.error('User not authenticated');
-    }
-
     final favoritesSongbookQuery = await _songbookCollection
         .where('name', isEqualTo: 'Favorites')
         .limit(1)

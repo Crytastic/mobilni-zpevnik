@@ -45,7 +45,7 @@ class SongTile extends StatelessWidget {
         icon: Icons.favorite,
         title: 'add-to-favorites'.i18n(),
         onTap: () {
-          _addToFavorites;
+          _addToFavorites();
           Navigator.pop(context);
         },
       ),
