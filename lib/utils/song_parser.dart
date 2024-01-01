@@ -12,7 +12,7 @@ class SongParser extends StatelessWidget {
   }
 
   bool _isChordLine(String line) {
-    const String notes = '[CDEFGAB]';
+    const String notes = '[CDEFGABH]';
     const String accidentals = '(b|bb)?';
     const String chords = '(m|mi|maj7|maj|min7|min|sus)?';
     const String suspends = '(1|2|3|4|5|6|7|8|9)?';
@@ -29,10 +29,10 @@ class SongParser extends StatelessWidget {
     return pattern.allMatches(input).map((match) => match.group(0)!).toList();
   }
 
-  List<Widget> _parseChordLine(String line) {
+  List<Widget> _parseChordLine(String line, bool down) {
     return _splitWordsAndSpaces(line)
         .map((String part) => part.contains(RegExp(r'\S'))
-            ? ChordButton(chord: part)
+            ? ChordButton(chord: part, down: down)
             : Text(part))
         .toList();
   }
@@ -47,7 +47,7 @@ class SongParser extends StatelessWidget {
         // This line contains chords, render them in grey boxes
         columnWidgets.add(
           Row(
-            children: _parseChordLine(line),
+            children: _parseChordLine(line, columnWidgets.length < 5),
           ),
         );
       } else if (!_isChordLine(line)) {
