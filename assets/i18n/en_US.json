@@ -30,5 +30,7 @@
   "email-already-in-use": "This e-mail is already in use.",
   "weak-password": "This password is too weak.",
   "add-to-songbook": "Add to songbook",
-  "remove-from-songbook": "Remove from songbook"
+  "remove-from-songbook": "Remove from songbook",
+  "delete-songbook": "Delete songbook",
+  "add-to-favorites": "Add to favorites"
 }

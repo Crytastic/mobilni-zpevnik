@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/screens/login_error_notifier.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
@@ -9,13 +10,13 @@ import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
 import 'package:mobilni_zpevnik/widgets/common_button.dart';
 import 'package:provider/provider.dart';
 import 'package:mobilni_zpevnik/widgets/custom_divider.dart';
-
-import 'package:mobilni_zpevnik/widgets/gap.dart';
-
-import '../widgets/progress_indicator.dart';
+import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
+import 'package:mobilni_zpevnik/widgets/progress_indicator.dart';
+import 'package:mobilni_zpevnik/service/auth_service.dart';
 
 class RegisterScreen extends StatelessWidget {
   final VoidCallback swapForLoginScreen;
+  final _authService = GetIt.I<AuthService>();
 
   RegisterScreen({super.key, required this.swapForLoginScreen});
 
@@ -23,7 +24,8 @@ class RegisterScreen extends StatelessWidget {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  void _signUserUp(BuildContext context, LoginErrorProvider loginErrorProvider) async {
+  void _signUserUp(
+      BuildContext context, LoginErrorProvider loginErrorProvider) async {
     loginErrorProvider.clearErrorMessages();
     ProgressDialog.show(context);
 
@@ -33,14 +35,13 @@ class RegisterScreen extends StatelessWidget {
     }
 
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
+      await _authService.signUpWithEmail(
+        emailController.text,
+        passwordController.text,
       );
     } on FirebaseAuthException catch (e) {
       final String code = e.code;
-      switch (code)
-      {
+      switch (code) {
         case 'email-already-in-use':
           loginErrorProvider.setEmailErrorMessage(code.i18n());
           break;
@@ -52,9 +53,8 @@ class RegisterScreen extends StatelessWidget {
           loginErrorProvider.setEmailErrorMessage(code);
           break;
       }
-
     }
-    if (context.mounted){
+    if (context.mounted) {
       ProgressDialog.hide(context);
     }
   }
@@ -107,11 +107,13 @@ class RegisterScreen extends StatelessWidget {
                 const Gap(),
                 const CustomDivider(),
                 const Gap(),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CommonSquareButton(
-                      onTap: null,
+                      onTap: () {
+                        _authService.signInWithGoogle();
+                      },
                       imagePath: "assets/images/google-logo.png",
                     )
                   ],
