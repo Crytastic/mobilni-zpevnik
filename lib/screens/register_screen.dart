@@ -31,6 +31,7 @@ class RegisterScreen extends StatelessWidget {
 
     if (passwordController.text != confirmPasswordController.text) {
       loginErrorProvider.setPasswordErrorMessage("Passwords do not match.");
+      ProgressDialog.hide(context);
       return;
     }
 
