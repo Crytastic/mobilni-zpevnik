@@ -5,6 +5,7 @@ import 'package:mobilni_zpevnik/screens/auth_screen.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
+import 'package:mobilni_zpevnik/widgets/handling_stream_builder.dart';
 
 class PreferencesScreen extends StatelessWidget {
   final _authService = GetIt.I<AuthService>();
@@ -18,7 +19,7 @@ class PreferencesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-        stream: _authService.instance.authStateChanges(),
+        stream: _authService.userStream,
         builder: (context, snapshot) {
           return AuthScreen(
             child: ScreenTemplate(

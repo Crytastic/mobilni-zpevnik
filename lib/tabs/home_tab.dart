@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/service/song_service.dart';
+import 'package:mobilni_zpevnik/widgets/handling_stream_builder.dart';
 import 'package:mobilni_zpevnik/widgets/song_list.dart';
 
 class HomeTab extends StatefulWidget {
@@ -16,17 +17,9 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<Song>>(
+    return HandlingStreamBuilder<List<Song>>(
       stream: _songService.songsStream,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(child: Text(snapshot.error.toString()));
-        }
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        final songs = snapshot.data!;
+      builder: (context, songs) {
         songs.sort((a, b) {
           return a.name.toLowerCase().compareTo(b.name.toLowerCase());
         });
