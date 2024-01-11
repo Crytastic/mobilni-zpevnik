@@ -14,7 +14,7 @@ class SongbooksStreamBuilder extends StatelessWidget {
     final songbookService = GetIt.I<SongbookService>();
 
     return StreamBuilder<List<Songbook>>(
-      stream: songbookService.songbooksStream,
+      stream: songbookService.currentUserSongbooksStream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(child: Text(snapshot.error.toString()));

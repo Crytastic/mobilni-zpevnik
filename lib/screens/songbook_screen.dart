@@ -11,9 +11,12 @@ import 'package:mobilni_zpevnik/service/songbook_service.dart';
 import 'package:mobilni_zpevnik/widgets/bottom_sheet_menu.dart';
 import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 
+import '../service/auth_service.dart';
+
 class SongbookScreen extends StatelessWidget {
   final Songbook songbook;
   final _songbookService = GetIt.I<SongbookService>();
+  final _authService = GetIt.I<AuthService>();
 
   SongbookScreen({Key? key, required this.songbook}) : super(key: key);
 
@@ -121,9 +124,10 @@ class SongbookScreen extends StatelessWidget {
   Widget _buildSongbookListOfSongs() {
     return Expanded(
       child: StreamBuilder<List<Song>>(
-        stream: _songbookService.songbooksStream.map((songbooks) => songbooks
-            .firstWhere((songbook) => songbook.id == this.songbook.id)
-            .songs),
+        stream: _songbookService.currentUserSongbooksStream.map((songbooks) =>
+            songbooks
+                .firstWhere((songbook) => songbook.id == this.songbook.id)
+                .songs),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -17,7 +18,11 @@ class AddToSongbookScreen extends StatelessWidget {
 
   void _createNewSongbook(String name, List<Song> songs) async {
     try {
-      var songbook = Songbook(name: name, songs: songs);
+      var songbook = Songbook(
+        name: name,
+        songs: songs,
+        ownerId: FirebaseAuth.instance.currentUser?.uid,
+      );
       var songbookReference = await _songbookService.createSongbook(songbook);
 
       await _songbookService.addSongToSongbook(songbookReference.id, song);
