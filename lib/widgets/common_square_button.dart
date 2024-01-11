@@ -4,7 +4,8 @@ class CommonSquareButton extends StatelessWidget {
   final VoidCallback? onTap;
   final String imagePath;
 
-  const CommonSquareButton({super.key, required this.onTap, required this.imagePath});
+  const CommonSquareButton(
+      {super.key, required this.onTap, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {

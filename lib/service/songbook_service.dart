@@ -6,11 +6,8 @@ import 'package:mobilni_zpevnik/models/songbook.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SongbookService {
-  final _songbookCollection = FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser?.uid)
-      .collection('songbooks')
-      .withConverter(
+  final _songbookCollection =
+      FirebaseFirestore.instance.collection('songbooks').withConverter(
     fromFirestore: (snapshot, options) {
       final json = snapshot.data() ?? {};
       json['id'] = snapshot.id;
@@ -39,6 +36,19 @@ class SongbookService {
   }
 
   Stream<List<Songbook>> get songbooksStream => _songbooksSubject.stream;
+
+  Stream<List<Songbook>> get currentUserSongbooksStream {
+    return FirebaseAuth.instance.authStateChanges().switchMap((user) {
+      if (user != null) {
+        String currentUserId = user.uid;
+        return songbooksStream.map((songbooks) => songbooks
+            .where((songbook) => songbook.ownerId == currentUserId)
+            .toList());
+      } else {
+        return Stream.value([]);
+      }
+    });
+  }
 
   Future<DocumentReference> createSongbook(Songbook songbook) {
     return _songbookCollection.add(songbook);
@@ -83,15 +93,17 @@ class SongbookService {
   Future<String> getFavoritesSongbookId() async {
     final favoritesSongbookQuery = await _songbookCollection
         .where('name', isEqualTo: 'Favorites')
+        .where('ownerId', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
         .limit(1)
         .get();
 
     if (favoritesSongbookQuery.docs.isNotEmpty) {
       return favoritesSongbookQuery.docs.first.id;
     } else {
-      const newFavoritesSongbook = Songbook(
+      var newFavoritesSongbook = Songbook(
         name: 'Favorites',
         songs: [],
+        ownerId: FirebaseAuth.instance.currentUser?.uid,
       );
 
       final newFavoritesSongbookRef =

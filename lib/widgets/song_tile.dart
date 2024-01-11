@@ -18,14 +18,14 @@ class SongTile extends StatelessWidget {
   final _songbookService = GetIt.I<SongbookService>();
 
   SongTile({
-    Key? key,
+    super.key,
     required this.song,
     required this.index,
     required this.canAddToSongbook,
     required this.canRemoveFromSongbook,
     this.onAddToSongbookTap,
     this.onRemoveFromSongbookTap,
-  }) : super(key: key);
+  });
 
   Future<void> _addToFavorites() async {
     final String favoritesId = await _songbookService.getFavoritesSongbookId();

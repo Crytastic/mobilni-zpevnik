@@ -7,12 +7,12 @@ class CommonButton extends StatelessWidget {
   final double width;
 
   const CommonButton({
-    Key? key,
+    super.key,
     this.height = 50.0,
     this.width = double.infinity,
     this.onPressed,
     required this.label,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

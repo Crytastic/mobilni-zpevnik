@@ -8,10 +8,10 @@ class SongbookTile extends StatelessWidget {
   final int index;
 
   const SongbookTile({
-    Key? key,
+    super.key,
     required this.songbook,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

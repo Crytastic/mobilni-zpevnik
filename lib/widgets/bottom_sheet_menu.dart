@@ -7,10 +7,10 @@ class BottomSheetMenu extends StatelessWidget {
   final List<MenuOption> menuOptions;
 
   const BottomSheetMenu({
-    Key? key,
+    super.key,
     required this.menuOptions,
     required this.menuHeader,
-  }) : super(key: key);
+  });
 
   static void show(
       BuildContext context, Widget menuHeader, List<MenuOption> menuOptions) {
@@ -23,7 +23,8 @@ class BottomSheetMenu extends StatelessWidget {
       ),
       context: context,
       builder: (BuildContext context) {
-        return BottomSheetMenu(menuHeader: menuHeader, menuOptions: menuOptions);
+        return BottomSheetMenu(
+            menuHeader: menuHeader, menuOptions: menuOptions);
       },
     );
   }

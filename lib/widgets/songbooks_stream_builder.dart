@@ -6,15 +6,14 @@ import 'package:mobilni_zpevnik/models/songbook.dart';
 class SongbooksStreamBuilder extends StatelessWidget {
   final Widget Function(BuildContext, List<Songbook>) builder;
 
-  const SongbooksStreamBuilder({Key? key, required this.builder})
-      : super(key: key);
+  const SongbooksStreamBuilder({super.key, required this.builder});
 
   @override
   Widget build(BuildContext context) {
     final songbookService = GetIt.I<SongbookService>();
 
     return StreamBuilder<List<Songbook>>(
-      stream: songbookService.songbooksStream,
+      stream: songbookService.currentUserSongbooksStream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(child: Text(snapshot.error.toString()));

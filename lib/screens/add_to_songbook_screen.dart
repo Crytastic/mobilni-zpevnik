@@ -7,17 +7,23 @@ import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/service/songbook_service.dart';
 import 'package:mobilni_zpevnik/models/songbook.dart';
 import 'package:mobilni_zpevnik/widgets/songbooks_stream_builder.dart';
+import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'create_songbook_screen.dart';
 
 class AddToSongbookScreen extends StatelessWidget {
   final Song song;
+  final _authService = GetIt.I<AuthService>();
   final _songbookService = GetIt.I<SongbookService>();
 
-  AddToSongbookScreen({Key? key, required this.song}) : super(key: key);
+  AddToSongbookScreen({super.key, required this.song});
 
   void _createNewSongbook(String name, List<Song> songs) async {
     try {
-      var songbook = Songbook(name: name, songs: songs);
+      var songbook = Songbook(
+        name: name,
+        songs: songs,
+        ownerId: _authService.instance.currentUser?.uid,
+      );
       var songbookReference = await _songbookService.createSongbook(songbook);
 
       await _songbookService.addSongToSongbook(songbookReference.id, song);

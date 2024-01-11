@@ -4,7 +4,7 @@ import 'package:mobilni_zpevnik/models/songbook.dart';
 import 'package:mobilni_zpevnik/widgets/songbooks_stream_builder.dart';
 
 class SongbooksTab extends StatelessWidget {
-  const SongbooksTab({Key? key}) : super(key: key);
+  const SongbooksTab({super.key});
 
   @override
   Widget build(BuildContext context) {
