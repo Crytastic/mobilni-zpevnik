@@ -54,7 +54,7 @@ class SongbookService {
     return _songbookCollection.add(songbook);
   }
 
-  Future<void> addSongToSongbook(String? songbookId, Song song) async {
+  Future<bool> addSongToSongbook(String? songbookId, Song song) async {
     final songbookReference = _songbookCollection.doc(songbookId);
 
     final songbookSnapshot = await songbookReference.get();
@@ -66,10 +66,12 @@ class SongbookService {
     if (!songExists) {
       existingSongs.add(song.toJson());
       await songbookReference.update({'songs': existingSongs});
+      return true;
     } else {
       if (kDebugMode) {
         print('Song with ID ${song.id} already exists in the songbook.');
       }
+      return false;
     }
   }
 

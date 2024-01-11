@@ -6,6 +6,7 @@ import 'package:mobilni_zpevnik/screens/login_error_notifier.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
 import 'package:mobilni_zpevnik/widgets/common_button.dart';
+import 'package:mobilni_zpevnik/widgets/snack_notification.dart';
 import 'package:provider/provider.dart';
 import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 import 'package:mobilni_zpevnik/widgets/progress_indicator.dart';
@@ -27,6 +28,9 @@ class ResetPasswordScreen extends StatelessWidget {
       await _authService.instance.sendPasswordResetEmail(
         email: emailController.text.trim(),
       );
+      if (context.mounted) {
+        SnackNotification.show(context, 'password-reset-email'.i18n());
+      }
     } on FirebaseAuthException catch (e) {
       final String code = e.code;
       switch (code) {

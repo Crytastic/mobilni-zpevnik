@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/screens/auth_screen.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
@@ -8,6 +9,7 @@ import 'package:mobilni_zpevnik/service/songbook_service.dart';
 import 'package:mobilni_zpevnik/models/songbook.dart';
 import 'package:mobilni_zpevnik/widgets/songbooks_stream_builder.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
+import 'package:mobilni_zpevnik/widgets/snack_notification.dart';
 import 'create_songbook_screen.dart';
 
 class AddToSongbookScreen extends StatelessWidget {
@@ -50,7 +52,7 @@ class AddToSongbookScreen extends StatelessWidget {
     return AuthScreen(
       child: ScreenTemplate(
         appBar: AppBar(
-          title: const Text('Add to Songbook'),
+          title: Text('add-to-songbook'.i18n()),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -58,7 +60,7 @@ class AddToSongbookScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.topCenter,
                 child: ListTile(
-                  title: const Text('Create New Songbook'),
+                  title: Text('create-new-songbook'.i18n()),
                   onTap: () {
                     _openCreateSongbookScreen(context, song);
                   },
@@ -76,9 +78,16 @@ class AddToSongbookScreen extends StatelessWidget {
                       var songbook = songbooks[index];
                       return ListTile(
                         title: Text(songbook.name),
-                        onTap: () {
-                          _songbookService.addSongToSongbook(songbook.id, song);
-                          Navigator.popUntil(context, (route) => route.isFirst);
+                        onTap: () async {
+                          var message = await _songbookService
+                                  .addSongToSongbook(songbook.id, song)
+                              ? 'Added ${song.name} to ${songbook.name}'
+                              : '${song.name} already in ${songbook.name}';
+                          if (context.mounted) {
+                            Navigator.popUntil(
+                                context, (route) => route.isFirst);
+                            SnackNotification.show(context, message);
+                          }
                         },
                       );
                     },

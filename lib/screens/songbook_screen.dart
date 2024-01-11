@@ -11,6 +11,7 @@ import 'package:mobilni_zpevnik/widgets/bottom_sheet_menu.dart';
 import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'package:mobilni_zpevnik/widgets/handling_stream_builder.dart';
+import 'package:mobilni_zpevnik/widgets/snack_notification.dart';
 
 class SongbookScreen extends StatelessWidget {
   final Songbook songbook;
@@ -36,6 +37,10 @@ class SongbookScreen extends StatelessWidget {
           onTap: () {
             _removeSongbook(songbook);
             Navigator.popUntil(context, (route) => route.isFirst);
+            SnackNotification.show(
+              context,
+              'Deleted ${songbook.name}',
+            );
           }),
     ];
 
@@ -91,7 +96,7 @@ class SongbookScreen extends StatelessWidget {
 
   Widget _buildNumberOfSongs() {
     return Text(
-      'Number of Songs: ${songbook.songs.length}',
+      '${'number-of-songs'.i18n()}: ${songbook.songs.length}',
       style: const TextStyle(color: Colors.grey),
     );
   }
@@ -138,6 +143,10 @@ class SongbookScreen extends StatelessWidget {
             onRemoveFromSongbookTap: (Song song) {
               _removeSongFromSongbook(song);
               Navigator.pop(context);
+              SnackNotification.show(
+                context,
+                'Removed ${song.name} from ${songbook.name}',
+              );
             },
           );
         },

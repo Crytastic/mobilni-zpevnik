@@ -23,7 +23,7 @@ class CreateSongbookScreen extends StatelessWidget {
 
     return ScreenTemplate(
       appBar: AppBar(
-        title: const Text('Create Songbook'),
+        title: const Text('create-songbook'),
       ),
       body: Center(
         child: Padding(
@@ -32,11 +32,11 @@ class CreateSongbookScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const Gap(),
-              const Text('Enter songbook name.'),
+              Text('enter-songbook-name'.i18n()),
               const Gap(),
               CommonTextField(
                 controller: songbookNameController,
-                hintText: 'Songbook name',
+                hintText: 'songbook-name'.i18n(),
               ),
               const Gap(),
               Row(
@@ -44,14 +44,14 @@ class CreateSongbookScreen extends StatelessWidget {
                 children: [
                   CommonButton(
                     width: 200,
-                    label: 'Cancel',
+                    label: 'cancel'.i18n(),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                   ),
                   CommonButton(
                     width: 200,
-                    label: 'Create',
+                    label: 'create'.i18n(),
                     onPressed: () {
                       onCreate(songbookNameController.text, []);
                       Navigator.popUntil(context, (route) => route.isFirst);
