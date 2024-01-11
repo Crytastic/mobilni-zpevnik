@@ -9,7 +9,7 @@ import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 class CreateSongbookScreen extends StatelessWidget {
   final Function(String name, List<Song> songs) onCreate;
 
-  CreateSongbookScreen({Key? key, required this.onCreate}) : super(key: key);
+  CreateSongbookScreen({super.key, required this.onCreate});
 
   final songbookNameController = TextEditingController();
 

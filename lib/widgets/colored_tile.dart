@@ -9,14 +9,14 @@ class ColoredTile extends StatelessWidget {
   final IconData? icon;
 
   const ColoredTile({
-    Key? key,
+    super.key,
     required this.index,
     required this.title,
     required this.subtitle,
     this.trailing,
     this.onTap,
     this.icon = Icons.music_note,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:mobilni_zpevnik/service/song_service.dart';
 import 'package:mobilni_zpevnik/widgets/song_list.dart';
 
 class HomeTab extends StatefulWidget {
-  const HomeTab({Key? key}) : super(key: key);
+  const HomeTab({super.key});
 
   @override
   State<HomeTab> createState() => _HomeTabState();

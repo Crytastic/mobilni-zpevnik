@@ -6,8 +6,7 @@ import 'package:mobilni_zpevnik/models/songbook.dart';
 class SongbooksStreamBuilder extends StatelessWidget {
   final Widget Function(BuildContext, List<Songbook>) builder;
 
-  const SongbooksStreamBuilder({Key? key, required this.builder})
-      : super(key: key);
+  const SongbooksStreamBuilder({super.key, required this.builder});
 
   @override
   Widget build(BuildContext context) {

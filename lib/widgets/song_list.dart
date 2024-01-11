@@ -11,13 +11,13 @@ class SongList extends StatelessWidget {
   final Function(Song song)? onRemoveFromSongbookTap;
 
   const SongList({
-    Key? key,
+    super.key,
     required this.songs,
     this.canAddToSongbook = true,
     this.canRemoveFromSongbook = false,
     this.onAddToSongbookTap,
     this.onRemoveFromSongbookTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,7 @@ import 'package:mobilni_zpevnik/widgets/song_list.dart';
 import '../widgets/common_text_field.dart';
 
 class SearchTab extends StatefulWidget {
-  const SearchTab({Key? key}) : super(key: key);
+  const SearchTab({super.key});
 
   @override
   State<SearchTab> createState() => _SearchTabState();

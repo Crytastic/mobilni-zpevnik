@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/screens/login_error_notifier.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
@@ -8,10 +9,12 @@ import 'package:mobilni_zpevnik/widgets/common_button.dart';
 import 'package:provider/provider.dart';
 import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 import 'package:mobilni_zpevnik/widgets/progress_indicator.dart';
+import 'package:mobilni_zpevnik/service/auth_service.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   final String email;
   late final emailController = TextEditingController(text: email);
+  final _authService = GetIt.I<AuthService>();
 
   ResetPasswordScreen({super.key, required this.email});
 
@@ -21,7 +24,7 @@ class ResetPasswordScreen extends StatelessWidget {
     ProgressDialog.show(context);
 
     try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(
+      await _authService.instance.sendPasswordResetEmail(
         email: emailController.text.trim(),
       );
     } on FirebaseAuthException catch (e) {

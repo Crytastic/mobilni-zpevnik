@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:localization/localization.dart';
@@ -10,15 +9,14 @@ import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/service/songbook_service.dart';
 import 'package:mobilni_zpevnik/widgets/bottom_sheet_menu.dart';
 import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
-
-import '../service/auth_service.dart';
+import 'package:mobilni_zpevnik/service/auth_service.dart';
 
 class SongbookScreen extends StatelessWidget {
   final Songbook songbook;
   final _songbookService = GetIt.I<SongbookService>();
   final _authService = GetIt.I<AuthService>();
 
-  SongbookScreen({Key? key, required this.songbook}) : super(key: key);
+  SongbookScreen({super.key, required this.songbook});
 
   void _removeSongFromSongbook(Song song) {
     _songbookService.removeSongFromSongbook(songbook.id, song.id);
@@ -79,9 +77,7 @@ class SongbookScreen extends StatelessWidget {
                 context,
                 ListTile(
                   title: Text(songbook.name),
-                  subtitle: Text(
-                    '${FirebaseAuth.instance.currentUser?.displayName}',
-                  ),
+                  subtitle: Text(_authService.userDisplayName),
                 ),
                 menuOptions,
               );
@@ -100,13 +96,11 @@ class SongbookScreen extends StatelessWidget {
   }
 
   Widget _buildUserName() {
-    final user = FirebaseAuth.instance.currentUser;
-
     return Row(
       children: [
         const Icon(Icons.account_circle_rounded),
         const SizedBox(width: 8.0),
-        Text(user?.displayName ?? user?.email ?? "Anonymous"),
+        Text(_authService.userDisplayName),
       ],
     );
   }

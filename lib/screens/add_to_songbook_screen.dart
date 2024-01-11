@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -8,20 +7,22 @@ import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/service/songbook_service.dart';
 import 'package:mobilni_zpevnik/models/songbook.dart';
 import 'package:mobilni_zpevnik/widgets/songbooks_stream_builder.dart';
+import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'create_songbook_screen.dart';
 
 class AddToSongbookScreen extends StatelessWidget {
   final Song song;
+  final _authService = GetIt.I<AuthService>();
   final _songbookService = GetIt.I<SongbookService>();
 
-  AddToSongbookScreen({Key? key, required this.song}) : super(key: key);
+  AddToSongbookScreen({super.key, required this.song});
 
   void _createNewSongbook(String name, List<Song> songs) async {
     try {
       var songbook = Songbook(
         name: name,
         songs: songs,
-        ownerId: FirebaseAuth.instance.currentUser?.uid,
+        ownerId: _authService.instance.currentUser?.uid,
       );
       var songbookReference = await _songbookService.createSongbook(songbook);
 

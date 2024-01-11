@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Gap extends StatelessWidget {
-  const Gap({Key? key}) : super(key: key);
+  const Gap({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class Gap extends StatelessWidget {
 }
 
 class SmallGap extends StatelessWidget {
-  const SmallGap({Key? key}) : super(key: key);
+  const SmallGap({super.key});
 
   @override
   Widget build(BuildContext context) {

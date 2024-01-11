@@ -7,8 +7,7 @@ class ChordButton extends StatelessWidget {
   final _controller = SuperTooltipController();
   final bool down;
 
-  ChordButton({Key? key, required this.chord, required this.down})
-      : super(key: key);
+  ChordButton({super.key, required this.chord, required this.down});
 
   Future<bool> _willPopCallback() async {
     // If the tooltip is open we don't pop the page on a backbutton press
