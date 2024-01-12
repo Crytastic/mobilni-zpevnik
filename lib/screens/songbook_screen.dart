@@ -13,6 +13,8 @@ import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'package:mobilni_zpevnik/widgets/handling_stream_builder.dart';
 import 'package:mobilni_zpevnik/widgets/snack_notification.dart';
 
+import '../utils/shared_ui_constants.dart';
+
 class SongbookScreen extends StatelessWidget {
   final Songbook songbook;
   final _songbookService = GetIt.I<SongbookService>();
@@ -65,7 +67,7 @@ class SongbookScreen extends StatelessWidget {
     ];
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: SMALL_GAP),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -110,7 +112,7 @@ class SongbookScreen extends StatelessWidget {
     return Row(
       children: [
         const Icon(Icons.account_circle_rounded),
-        const SizedBox(width: 8.0),
+        const SmallGap(),
         Text(_authService.userDisplayName),
       ],
     );
@@ -120,7 +122,7 @@ class SongbookScreen extends StatelessWidget {
     return Text(
       songbook.name,
       style: const TextStyle(
-        fontSize: 16.0,
+        fontSize: STANDARD_FONT_SIZE,
         fontWeight: FontWeight.bold,
       ),
     );

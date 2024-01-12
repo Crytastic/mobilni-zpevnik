@@ -6,6 +6,7 @@ import 'package:mobilni_zpevnik/service/song_service.dart';
 import 'package:mobilni_zpevnik/widgets/song_list.dart';
 
 import '../widgets/common_text_field.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 
 class SearchTab extends StatefulWidget {
   const SearchTab({super.key});
@@ -49,7 +50,7 @@ class _SearchTabState extends State<SearchTab> {
 
   Widget _buildSearchBar() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(SMALL_GAP),
       child: CommonTextField(
         controller: _searchController,
         hintText: 'search'.i18n(),

@@ -5,6 +5,7 @@ import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:mobilni_zpevnik/widgets/common_button.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
 import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 
 class CreateSongbookScreen extends StatelessWidget {
   final Function(String name, List<Song> songs) onCreate;
@@ -27,7 +28,7 @@ class CreateSongbookScreen extends StatelessWidget {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: SMALL_GAP),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

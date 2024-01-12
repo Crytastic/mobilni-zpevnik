@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 
 class ColoredTile extends StatelessWidget {
   final int index;
@@ -33,7 +34,7 @@ class ColoredTile extends StatelessWidget {
         height: 48.0,
         decoration: BoxDecoration(
           color: tileColor.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(4.0),
+          borderRadius: BorderRadius.circular(SMALL_RADIUS),
         ),
         child: Center(
           child: Icon(
