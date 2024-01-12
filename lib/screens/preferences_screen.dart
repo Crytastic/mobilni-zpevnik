@@ -5,7 +5,6 @@ import 'package:mobilni_zpevnik/screens/auth_screen.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
-import 'package:mobilni_zpevnik/widgets/handling_stream_builder.dart';
 
 class PreferencesScreen extends StatelessWidget {
   final _authService = GetIt.I<AuthService>();
@@ -28,8 +27,8 @@ class PreferencesScreen extends StatelessWidget {
               ),
               body: ListView(
                 children: [
-                  const SwitchListTile(
-                    title: Text("Dark Mode"),
+                  SwitchListTile(
+                    title: Text('dark-mode'.i18n()),
                     value: true,
                     onChanged: null,
                   ),

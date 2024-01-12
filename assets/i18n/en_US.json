@@ -1,6 +1,5 @@
 {
   "preferences": "Preferences",
-  "preferences-content": "Preferences settings go here.",
   "songbook": "Songbook",
   "song": "Song",
   "song-suggestion": "Song suggestion",
@@ -24,7 +23,8 @@
   "have-account": "Already have an account?",
   "login-now": "Log in now",
   "reset-password": "Reset password",
-  "invalid-email": "Invalid e-mail",
+  "invalid-email": "This is not how an e-mail looks like.",
+  "missing-email": "Oops, you probably want to write something here.",
   "invalid-credential": "Wrong password. Try again or click Forgot password to reset it.",
   "missing-password": "Missing password.",
   "email-already-in-use": "This e-mail is already in use.",
@@ -32,5 +32,16 @@
   "add-to-songbook": "Add to songbook",
   "remove-from-songbook": "Remove from songbook",
   "delete-songbook": "Delete songbook",
-  "add-to-favorites": "Add to favorites"
+  "add-to-favorites": "Add to favorites",
+  "create-new-songbook": "Create New Songbook",
+  "create-songbook": "Create songbook",
+  "no-songs": "No songs available.",
+  "number-of-songs": "Number of Songs",
+  "enter-songbook-name": "Enter songbook name.",
+  "songbook-name": "Songbook name",
+  "cancel": "Cancel",
+  "create": "Create",
+  "dark-mode": "Dark Mode",
+  "password-reset-email": "Sent e-mail to reset password",
+  "artist": "Artist"
 }

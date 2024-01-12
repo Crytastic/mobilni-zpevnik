@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:mobilni_zpevnik/utils/auto_scroll_provider.dart';
@@ -27,7 +28,7 @@ class SongScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
-              'Artist: ${song.artist}',
+              '${'artist'.i18n()} : ${song.artist}',
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

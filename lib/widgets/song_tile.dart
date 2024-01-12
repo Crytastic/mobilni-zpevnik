@@ -7,6 +7,7 @@ import 'package:mobilni_zpevnik/widgets/bottom_sheet_menu.dart';
 import 'package:mobilni_zpevnik/widgets/colored_tile.dart';
 import 'package:mobilni_zpevnik/widgets/menu_option.dart';
 import 'package:mobilni_zpevnik/service/songbook_service.dart';
+import 'package:mobilni_zpevnik/widgets/snack_notification.dart';
 
 class SongTile extends StatelessWidget {
   final Song song;
@@ -27,9 +28,9 @@ class SongTile extends StatelessWidget {
     this.onRemoveFromSongbookTap,
   });
 
-  Future<void> _addToFavorites() async {
+  Future<bool> _addToFavorites() async {
     final String favoritesId = await _songbookService.getFavoritesSongbookId();
-    await _songbookService.addSongToSongbook(favoritesId, song);
+    return await _songbookService.addSongToSongbook(favoritesId, song);
   }
 
   @override
@@ -44,9 +45,14 @@ class SongTile extends StatelessWidget {
       MenuOption(
         icon: Icons.favorite,
         title: 'add-to-favorites'.i18n(),
-        onTap: () {
-          _addToFavorites();
-          Navigator.pop(context);
+        onTap: () async {
+          var message = await _addToFavorites()
+              ? 'Added ${song.name} to Favorites'
+              : '${song.name} already in Favorites';
+          if (context.mounted) {
+            SnackNotification.show(context, message);
+            Navigator.pop(context);
+          }
         },
       ),
       if (canRemoveFromSongbook)

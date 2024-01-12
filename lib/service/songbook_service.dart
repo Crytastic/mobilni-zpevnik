@@ -50,11 +50,17 @@ class SongbookService {
     });
   }
 
+  Stream<Songbook> singleSongbookStream(String? songbookId) {
+    return currentUserSongbooksStream.map((songbooks) {
+      return songbooks.firstWhere((songbook) => songbook.id == songbookId);
+    });
+  }
+
   Future<DocumentReference> createSongbook(Songbook songbook) {
     return _songbookCollection.add(songbook);
   }
 
-  Future<void> addSongToSongbook(String? songbookId, Song song) async {
+  Future<bool> addSongToSongbook(String? songbookId, Song song) async {
     final songbookReference = _songbookCollection.doc(songbookId);
 
     final songbookSnapshot = await songbookReference.get();
@@ -66,10 +72,12 @@ class SongbookService {
     if (!songExists) {
       existingSongs.add(song.toJson());
       await songbookReference.update({'songs': existingSongs});
+      return true;
     } else {
       if (kDebugMode) {
         print('Song with ID ${song.id} already exists in the songbook.');
       }
+      return false;
     }
   }
 

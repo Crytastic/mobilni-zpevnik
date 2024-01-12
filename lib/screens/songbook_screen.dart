@@ -11,6 +11,7 @@ import 'package:mobilni_zpevnik/widgets/bottom_sheet_menu.dart';
 import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'package:mobilni_zpevnik/widgets/handling_stream_builder.dart';
+import 'package:mobilni_zpevnik/widgets/snack_notification.dart';
 
 class SongbookScreen extends StatelessWidget {
   final Songbook songbook;
@@ -29,31 +30,40 @@ class SongbookScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<MenuOption> menuOptions = [
-      MenuOption(
-          icon: Icons.delete_rounded,
-          title: 'delete-songbook'.i18n(),
-          onTap: () {
-            _removeSongbook(songbook);
-            Navigator.popUntil(context, (route) => route.isFirst);
-          }),
-    ];
-
-    return ScreenTemplate(
-      appBar: AppBar(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildSongbookHeader(context, menuOptions),
-          const Divider(height: 1),
-          _buildSongbookListOfSongs(),
-        ],
-      ),
+    return HandlingStreamBuilder<Songbook>(
+      stream: _songbookService.singleSongbookStream(songbook.id),
+      builder: (context, updatedSongbook) {
+        return ScreenTemplate(
+          appBar: AppBar(),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildSongbookHeader(context, updatedSongbook),
+              const Divider(height: 1),
+              _buildSongbookListOfSongs(context, updatedSongbook),
+            ],
+          ),
+        );
+      },
     );
   }
 
-  Widget _buildSongbookHeader(
-      BuildContext context, List<MenuOption> menuOptions) {
+  Widget _buildSongbookHeader(BuildContext context, Songbook songbook) {
+    List<MenuOption> menuOptions = [
+      MenuOption(
+        icon: Icons.delete_rounded,
+        title: 'delete-songbook'.i18n(),
+        onTap: () {
+          _removeSongbook(songbook);
+          Navigator.popUntil(context, (route) => route.isFirst);
+          SnackNotification.show(
+            context,
+            'Deleted ${songbook.name}',
+          );
+        },
+      ),
+    ];
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
@@ -63,11 +73,11 @@ class SongbookScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SmallGap(),
-              _buildSongbookName(),
+              _buildSongbookName(songbook),
               const SmallGap(),
               _buildUserName(),
               const SmallGap(),
-              _buildNumberOfSongs(),
+              _buildNumberOfSongs(songbook),
               const SmallGap(),
             ],
           ),
@@ -89,9 +99,9 @@ class SongbookScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNumberOfSongs() {
+  Widget _buildNumberOfSongs(Songbook songbook) {
     return Text(
-      'Number of Songs: ${songbook.songs.length}',
+      '${'number-of-songs'.i18n()}: ${songbook.songs.length}',
       style: const TextStyle(color: Colors.grey),
     );
   }
@@ -106,7 +116,7 @@ class SongbookScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSongbookName() {
+  Widget _buildSongbookName(Songbook songbook) {
     return Text(
       songbook.name,
       style: const TextStyle(
@@ -116,32 +126,32 @@ class SongbookScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSongbookListOfSongs() {
+  Widget _buildSongbookListOfSongs(BuildContext context, Songbook songbook) {
     return Expanded(
-      child: HandlingStreamBuilder<List<Song>>(
-        stream: _songbookService.currentUserSongbooksStream.map((songbooks) =>
-            songbooks
-                .firstWhere((songbook) => songbook.id == this.songbook.id)
-                .songs),
-        builder: (context, songs) {
-          songs.sort((a, b) {
-            return a.name.toLowerCase().compareTo(b.name.toLowerCase());
-          });
+      child: _buildSongList(context, songbook),
+    );
+  }
 
-          if (songs.isEmpty) {
-            return const Center(child: Text('No songs available.'));
-          }
+  Widget _buildSongList(BuildContext context, Songbook songbook) {
+    songbook.songs.sort((a, b) {
+      return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+    });
 
-          return SongList(
-            songs: songbook.songs,
-            canRemoveFromSongbook: true,
-            onRemoveFromSongbookTap: (Song song) {
-              _removeSongFromSongbook(song);
-              Navigator.pop(context);
-            },
-          );
-        },
-      ),
+    if (songbook.songs.isEmpty) {
+      return Center(child: Text('no-songs'.i18n()));
+    }
+
+    return SongList(
+      songs: songbook.songs,
+      canRemoveFromSongbook: true,
+      onRemoveFromSongbookTap: (Song song) {
+        _removeSongFromSongbook(song);
+        Navigator.pop(context);
+        SnackNotification.show(
+          context,
+          'Removed ${song.name} from ${songbook.name}',
+        );
+      },
     );
   }
 }
