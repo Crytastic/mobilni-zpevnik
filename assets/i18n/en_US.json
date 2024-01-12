@@ -36,6 +36,7 @@
   "create-new-songbook": "Create New Songbook",
   "create-songbook": "Create songbook",
   "no-songs": "No songs available.",
+  "no-songbooks": "You haven't created any songbooks yet.",
   "number-of-songs": "Number of Songs",
   "enter-songbook-name": "Enter songbook name.",
   "songbook-name": "Songbook name",
