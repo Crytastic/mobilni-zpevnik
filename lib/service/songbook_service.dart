@@ -50,6 +50,12 @@ class SongbookService {
     });
   }
 
+  Stream<Songbook> singleSongbookStream(String? songbookId) {
+    return currentUserSongbooksStream.map((songbooks) {
+      return songbooks.firstWhere((songbook) => songbook.id == songbookId);
+    });
+  }
+
   Future<DocumentReference> createSongbook(Songbook songbook) {
     return _songbookCollection.add(songbook);
   }

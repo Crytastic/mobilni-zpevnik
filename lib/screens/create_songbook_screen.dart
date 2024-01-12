@@ -43,14 +43,14 @@ class CreateSongbookScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   CommonButton(
-                    width: 200,
+                    width: 180,
                     label: 'cancel'.i18n(),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                   ),
                   CommonButton(
-                    width: 200,
+                    width: 180,
                     label: 'create'.i18n(),
                     onPressed: () {
                       onCreate(songbookNameController.text, []);
