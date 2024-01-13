@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:collection/collection.dart';
@@ -41,6 +40,11 @@ class UserDataService {
         return Stream.value(null);
       }
     });
+  }
+
+  Stream<List<Song>> get latestSongsStream {
+    return currentUserUserDataStream
+        .map((userData) => userData?.latestSongs ?? []);
   }
 
   /// Get UserData DocumentReference.

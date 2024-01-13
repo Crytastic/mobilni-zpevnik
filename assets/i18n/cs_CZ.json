@@ -44,5 +44,7 @@
   "create": "Vytvořit",
   "dark-mode": "Tmavý režim",
   "password-reset-email": "E-mail k obnovení hesla byl odeslán",
-  "artist": "Umělec"
+  "artist": "Umělec",
+  "recommended": "Doporučené",
+  "last-played": "Naposledy hrané"
 }

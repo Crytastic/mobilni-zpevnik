@@ -44,5 +44,7 @@
   "create": "Create",
   "dark-mode": "Dark Mode",
   "password-reset-email": "Sent e-mail to reset password",
-  "artist": "Artist"
+  "artist": "Artist",
+  "recommended": "Recommended",
+  "last-played": "Last played"
 }

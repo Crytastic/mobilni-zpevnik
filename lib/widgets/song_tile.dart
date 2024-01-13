@@ -94,8 +94,6 @@ class SongTile extends StatelessWidget {
             builder: (context) => SongScreen(song: song),
           ),
         );
-        print("added to latest songs");
-        // _userDataService.createUserData();
         _userDataService.addToLatestSongs(song);
       },
     );

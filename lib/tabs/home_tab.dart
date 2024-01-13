@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobilni_zpevnik/service/song_service.dart';
 import 'package:mobilni_zpevnik/service/user_data_service.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/handling_stream_builder.dart';
 import 'package:mobilni_zpevnik/widgets/song_list.dart';
 import 'package:mobilni_zpevnik/models/user_data.dart';
@@ -20,26 +22,66 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          _buildLastPlayed(),
+          _buildRecommended(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLastPlayed() {
+    return HandlingStreamBuilder<List<Song>>(
+      stream: _userDataService.latestSongsStream,
+      builder: (context, latestSongs) {
+        if (latestSongs.isEmpty) {
+          return Container();
+        }
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildSectionHeader("Last played"),
+            _buildLastPlayedSection(latestSongs),
+          ],
+        );
+      }
+    );
+  }
+
+  Widget _buildRecommended() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionHeader("Recommended"),
+        _buildRecommendedSection(),
+      ],
+    );
+  }
+
+  Widget _buildSectionHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.all(SMALL_GAP),
+      child: Text(
+        title,
+        style: const TextStyle(
+          fontSize: STANDARD_FONT_SIZE,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLastPlayedSection(List<Song> lastPlayed) {
+    return SongList(songs: lastPlayed);
+  }
+
+  Widget _buildRecommendedSection() {
     return HandlingStreamBuilder<List<Song>>(
       stream: _songService.songsStream,
       builder: (context, songs) {
-        return StreamBuilder<UserData?>(
-          stream: _userDataService.currentUserUserDataStream,
-          builder: (context, userDataSnapshot) {
-            /// Has error, something is wrong
-            if (userDataSnapshot.hasError) {
-              return Center(child: Text('Error: ${userDataSnapshot.error!}'));
-            }
-
-            /// Has user data, show latest songs
-            if (userDataSnapshot.hasData) {
-              return SongList(songs: userDataSnapshot.data!.latestSongs);
-            }
-
-            /// Doesn't have user data or some other issue, show random songs
-            return SongList(songs: songs);
-          },
-        );
+        return SongList(songs: songs);
       },
     );
   }
