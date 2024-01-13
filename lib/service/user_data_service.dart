@@ -1,10 +1,11 @@
+import 'dart:collection';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:collection/collection.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mobilni_zpevnik/models/user_data.dart';
-import 'package:mobilni_zpevnik/utils/queue_set.dart';
 import 'package:rxdart/rxdart.dart';
 
 class UserDataService {
@@ -56,7 +57,6 @@ class UserDataService {
     }
 
     if (await userDataExists(userId)) {
-      // UserData already exists, return its DocumentReference
       return _userDataCollection.doc(userId);
     }
 
@@ -97,10 +97,14 @@ class UserDataService {
     }
 
     final userDataSnapshot = await userDataReference.get();
-    final existingLatestSongs =
+    var existingLatestSongs =
         List<Map<String, dynamic>>.from(userDataSnapshot['latestSongs']);
 
-    existingLatestSongs.add(song.toJson());
-    await userDataReference.update({'latestSongs': existingLatestSongs});
+    // Ensure song is appears only once in latest songs
+    final queue = Queue.from(existingLatestSongs);
+    queue.removeWhere((element) => element['id'] == song.id);
+    queue.add(song.toJson());
+
+    await userDataReference.update({'latestSongs': queue.toList().reversed});
   }
 }

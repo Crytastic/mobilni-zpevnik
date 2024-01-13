@@ -17,6 +17,7 @@ class HandlingStreamBuilder<T> extends StatelessWidget {
         }
 
         if (!snapshot.hasData) {
+          return Center(child: Text('Problem with songs stream'));
           return const Center(child: CircularProgressIndicator());
         }
 
