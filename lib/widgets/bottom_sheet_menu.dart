@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/menu_option.dart';
 import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 
@@ -17,8 +18,8 @@ class BottomSheetMenu extends StatelessWidget {
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10.0),
-          topRight: Radius.circular(10.0),
+          topLeft: Radius.circular(STANDARD_RADIUS),
+          topRight: Radius.circular(STANDARD_RADIUS),
         ),
       ),
       context: context,
@@ -54,7 +55,7 @@ class BottomSheetMenu extends StatelessWidget {
       height: 4.0,
       decoration: BoxDecoration(
         color: Colors.grey,
-        borderRadius: BorderRadius.circular(4.0),
+        borderRadius: BorderRadius.circular(SMALL_RADIUS),
       ),
     );
   }

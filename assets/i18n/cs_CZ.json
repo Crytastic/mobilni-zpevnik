@@ -36,6 +36,7 @@
   "create-new-songbook": "Vytvořit nový zpěvník",
   "create-songbook": "Vytvořit zpěvník",
   "no-songs": "Žádné dostupné písně.",
+  "no-songbooks": "Zatím jsi nevytvořil žádné zpěvníky.",
   "number-of-songs": "Počet písní",
   "enter-songbook-name": "Zadejte název zpěvníku.",
   "songbook-name": "Název zpěvníku",
@@ -43,5 +44,7 @@
   "create": "Vytvořit",
   "dark-mode": "Tmavý režim",
   "password-reset-email": "E-mail k obnovení hesla byl odeslán",
-  "artist": "Umělec"
+  "artist": "Umělec",
+  "recommended": "Doporučené",
+  "last-played": "Naposledy hrané"
 }

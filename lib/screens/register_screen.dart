@@ -4,15 +4,16 @@ import 'package:get_it/get_it.dart';
 import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/screens/login_error_notifier.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
+import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'package:mobilni_zpevnik/widgets/common_square_button.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_button.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
 import 'package:mobilni_zpevnik/widgets/common_button.dart';
-import 'package:provider/provider.dart';
 import 'package:mobilni_zpevnik/widgets/custom_divider.dart';
+import 'package:provider/provider.dart';
 import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 import 'package:mobilni_zpevnik/widgets/progress_indicator.dart';
-import 'package:mobilni_zpevnik/service/auth_service.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 
 class RegisterScreen extends StatelessWidget {
   final VoidCallback swapForLoginScreen;
@@ -72,7 +73,7 @@ class RegisterScreen extends StatelessWidget {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: SMALL_GAP),
             child: Column(
               children: [
                 const Gap(),

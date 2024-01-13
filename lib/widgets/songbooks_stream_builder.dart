@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/service/songbook_service.dart';
 import 'package:mobilni_zpevnik/models/songbook.dart';
 
@@ -20,6 +21,12 @@ class SongbooksStreamBuilder extends StatelessWidget {
         songbooks.sort((a, b) {
           return a.name.toLowerCase().compareTo(b.name.toLowerCase());
         });
+
+        if (songbooks.isEmpty) {
+          return Center(
+            child: Text('no-songbooks'.i18n()),
+          );
+        }
 
         return builder(context, songbooks);
       },

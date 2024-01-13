@@ -6,6 +6,9 @@ import 'package:mobilni_zpevnik/utils/auto_scroll_provider.dart';
 import 'package:mobilni_zpevnik/utils/song_parser.dart';
 import 'package:provider/provider.dart';
 
+import '../utils/shared_ui_constants.dart';
+import '../widgets/ui_gaps.dart';
+
 class SongScreen extends StatelessWidget {
   final Song song;
 
@@ -28,13 +31,13 @@ class SongScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
-              '${'artist'.i18n()} : ${song.artist}',
+              '${'artist'.i18n()}: ${song.artist}',
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: STANDARD_FONT_SIZE,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 16),
+            const Gap(),
             SongParser(songContent: song.content),
           ],
         ),

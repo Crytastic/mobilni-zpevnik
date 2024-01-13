@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 
 class CustomDivider extends StatelessWidget {
   const CustomDivider({super.key});
@@ -14,7 +15,7 @@ class CustomDivider extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: SMALL_GAP),
           child: Text('or'.i18n()),
         ),
         const Expanded(

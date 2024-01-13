@@ -14,6 +14,7 @@ import 'package:mobilni_zpevnik/widgets/custom_divider.dart';
 import 'package:provider/provider.dart';
 import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 import 'package:mobilni_zpevnik/widgets/progress_indicator.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 
 class LoginScreen extends StatelessWidget {
   final VoidCallback swapForRegisterScreen;
@@ -69,7 +70,7 @@ class LoginScreen extends StatelessWidget {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: SMALL_GAP),
             child: Column(
               children: [
                 const Gap(),

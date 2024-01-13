@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 
 class CommonSquareButton extends StatelessWidget {
   final VoidCallback? onTap;
@@ -14,10 +15,10 @@ class CommonSquareButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(SMALL_GAP),
         decoration: BoxDecoration(
           color: colorScheme.background,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(STANDARD_RADIUS),
         ),
         child: Image.asset(
           imagePath,
