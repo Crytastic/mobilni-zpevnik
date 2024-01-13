@@ -1,4 +1,3 @@
-import 'dart:collection';
 
 extension Unique<E, Id> on List<E> {
   List<E> unique([Id Function(E element)? id, bool inplace = true]) {

@@ -1,12 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/service/song_service.dart';
 import 'package:mobilni_zpevnik/service/user_data_service.dart';
 import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/handling_stream_builder.dart';
 import 'package:mobilni_zpevnik/widgets/song_list.dart';
-import 'package:mobilni_zpevnik/models/user_data.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 
 class HomeTab extends StatefulWidget {
@@ -42,11 +41,11 @@ class _HomeTabState extends State<HomeTab> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSectionHeader("Last played"),
+            _buildSectionHeader('last-played'.i18n()),
             _buildLastPlayedSection(latestSongs),
           ],
         );
-      }
+      },
     );
   }
 
@@ -54,7 +53,7 @@ class _HomeTabState extends State<HomeTab> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader("Recommended"),
+        _buildSectionHeader('recommended'.i18n()),
         _buildRecommendedSection(),
       ],
     );
