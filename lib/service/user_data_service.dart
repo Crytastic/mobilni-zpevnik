@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:collection/collection.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mobilni_zpevnik/models/user_data.dart';
+import 'package:mobilni_zpevnik/utils/queue_set.dart';
 import 'package:rxdart/rxdart.dart';
 
 class UserDataService {
@@ -28,7 +31,7 @@ class UserDataService {
       if (user != null) {
         String currentUserId = user.uid;
         return userDataStream.map((List<UserData> users) {
-          UserData? currentUser = users.firstWhere(
+          UserData? currentUser = users.firstWhereOrNull(
             (userData) => userData.id == currentUserId,
           );
           return currentUser;
@@ -39,24 +42,65 @@ class UserDataService {
     });
   }
 
+  /// Get UserData DocumentReference.
+  ///
+  /// If it doesn't exist yet, create it and then return it.
+  /// UserData in Firestore 'users' with same UID as FirebaseAuth user
+  Future<DocumentReference<UserData>?> _getUserData() async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      if (kDebugMode) {
+        print('User not signed in');
+      }
+      return null;
+    }
+
+    if (await userDataExists(userId)) {
+      // UserData already exists, return its DocumentReference
+      return _userDataCollection.doc(userId);
+    }
+
+    if (kDebugMode) {
+      print('Creating new UserData for user ID $userId');
+    }
+
+    final newUserData = UserData(id: userId, latestSongs: []);
+    final customDocRef = _userDataCollection.doc(userId);
+    await customDocRef.set(newUserData);
+
+    return customDocRef;
+  }
+
+  Future<void> deleteUserData(String userId) {
+    return _userDataCollection.doc(userId).delete();
+  }
+
   Future<bool> userDataExists(String userId) async {
     final userDataSnapshot = await _userDataCollection.doc(userId).get();
     return userDataSnapshot.exists;
   }
 
-  Future<void> addToLatestSongs(String userId, Song song) async {
-    final userDocRef = _userDataCollection.doc(userId);
-
-    return FirebaseFirestore.instance.runTransaction((transaction) async {
-      final userSnapshot = await transaction.get(userDocRef);
-      if (userSnapshot.exists) {
-        final userData = userSnapshot.data() as Map<String, dynamic>;
-        final user = UserData.fromJson(userData);
-
-        user.latestSongs.add(song);
-
-        transaction.update(userDocRef, user.toJson());
+  Future<void> addToLatestSongs(Song song) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      if (kDebugMode) {
+        print('User not signed in');
       }
-    });
+      return;
+    }
+
+    // Ensure UserData exists, and get its DocumentReference
+    final userDataReference = await _getUserData();
+    if (userDataReference == null) {
+      // UserData creation failed or user not signed in
+      return;
+    }
+
+    final userDataSnapshot = await userDataReference.get();
+    final existingLatestSongs =
+        List<Map<String, dynamic>>.from(userDataSnapshot['latestSongs']);
+
+    existingLatestSongs.add(song.toJson());
+    await userDataReference.update({'latestSongs': existingLatestSongs});
   }
 }

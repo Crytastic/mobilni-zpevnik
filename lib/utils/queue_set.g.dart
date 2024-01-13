@@ -7,7 +7,7 @@ part of 'queue_set.dart';
 // **************************************************************************
 
 QueueSet<E> _$QueueSetFromJson<E>(Map<String, dynamic> json) => QueueSet<E>(
-      json['maxLength'] as int?,
+      maxLength: json['maxLength'] as int?,
     );
 
 Map<String, dynamic> _$QueueSetToJson<E>(QueueSet<E> instance) =>

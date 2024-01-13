@@ -1,13 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/screens/song_screen.dart';
+import 'package:mobilni_zpevnik/service/user_data_service.dart';
 import 'package:mobilni_zpevnik/widgets/bottom_sheet_menu.dart';
 import 'package:mobilni_zpevnik/widgets/colored_tile.dart';
 import 'package:mobilni_zpevnik/widgets/menu_option.dart';
 import 'package:mobilni_zpevnik/service/songbook_service.dart';
 import 'package:mobilni_zpevnik/widgets/snack_notification.dart';
+
+import '../models/user_data.dart';
 
 class SongTile extends StatelessWidget {
   final Song song;
@@ -17,6 +21,7 @@ class SongTile extends StatelessWidget {
   final VoidCallback? onAddToSongbookTap;
   final Function(Song song)? onRemoveFromSongbookTap;
   final _songbookService = GetIt.I<SongbookService>();
+  final _userDataService = GetIt.I<UserDataService>();
 
   SongTile({
     super.key,
@@ -89,6 +94,9 @@ class SongTile extends StatelessWidget {
             builder: (context) => SongScreen(song: song),
           ),
         );
+        print("added to latest songs");
+        // _userDataService.createUserData();
+        _userDataService.addToLatestSongs(song);
       },
     );
   }

@@ -9,7 +9,7 @@ class QueueSet<E> {
   final Set<E> _set = Set();
   final int? maxLength;
 
-  QueueSet(this.maxLength);
+  QueueSet({this.maxLength});
 
   void add(E element) {
     if (!_set.contains(element)) {

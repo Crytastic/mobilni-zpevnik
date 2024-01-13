@@ -7,7 +7,7 @@ part 'user_data.g.dart';
 @JsonSerializable()
 class UserData {
   String id;
-  QueueSet<Song> latestSongs;
+  List<Song> latestSongs;
 
   UserData({
     required this.id,

@@ -8,8 +8,9 @@ part of 'user_data.dart';
 
 UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       id: json['id'] as String,
-      latestSongs:
-          QueueSet<Song>.fromJson(json['latestSongs'] as Map<String, dynamic>),
+      latestSongs: (json['latestSongs'] as List<dynamic>)
+          .map((e) => Song.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
