@@ -42,7 +42,7 @@ class _HomeTabState extends State<HomeTab> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildSectionHeader('last-played'.i18n()),
-            _buildLastPlayedSection(latestSongs),
+            _buildLastPlayedSection(latestSongs.reversed.take(5).toList()),
           ],
         );
       },
