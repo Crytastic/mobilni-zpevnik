@@ -73,14 +73,20 @@ class _HomeTabState extends State<HomeTab> {
   }
 
   Widget _buildLastPlayedSection(List<Song> lastPlayed) {
-    return SongList(songs: lastPlayed);
+    return SongList(
+      songs: lastPlayed,
+      scrollable: false,
+    );
   }
 
   Widget _buildRecommendedSection() {
     return HandlingStreamBuilder<List<Song>>(
       stream: _songService.songsStream,
       builder: (context, songs) {
-        return SongList(songs: songs);
+        return SongList(
+          songs: songs,
+          scrollable: false,
+        );
       },
     );
   }

@@ -144,6 +144,7 @@ class SongbookScreen extends StatelessWidget {
     }
 
     return SongList(
+      scrollable: true,
       songs: songbook.songs,
       canRemoveFromSongbook: true,
       onRemoveFromSongbookTap: (Song song) {
