@@ -5,9 +5,8 @@ import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:mobilni_zpevnik/utils/auto_scroll_provider.dart';
 import 'package:mobilni_zpevnik/utils/song_parser.dart';
 import 'package:provider/provider.dart';
-
-import '../utils/shared_ui_constants.dart';
-import '../widgets/ui_gaps.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
+import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 
 class SongScreen extends StatelessWidget {
   final Song song;

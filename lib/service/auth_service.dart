@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
@@ -10,6 +11,14 @@ class AuthService {
       instance.currentUser?.displayName ??
       instance.currentUser?.email ??
       "Anonymous";
+
+  Future<UserCredential> signInAnonymously() async {
+    final credential = FirebaseAuth.instance.signInAnonymously();
+    if (kDebugMode) {
+      print("Signed in anonymously: $credential");
+    }
+    return credential;
+  }
 
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();

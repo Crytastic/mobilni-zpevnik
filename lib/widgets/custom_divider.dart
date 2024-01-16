@@ -10,18 +10,14 @@ class CustomDivider extends StatelessWidget {
     return Row(
       children: [
         const Expanded(
-          child: Divider(
-            color: Colors.grey,
-          ),
+          child: Divider(),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: SMALL_GAP),
           child: Text('or'.i18n()),
         ),
         const Expanded(
-          child: Divider(
-            color: Colors.grey,
-          ),
+          child: Divider(),
         ),
       ],
     );
