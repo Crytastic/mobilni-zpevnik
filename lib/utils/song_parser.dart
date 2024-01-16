@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/chord_button.dart';
@@ -54,7 +55,11 @@ class SongParser extends StatelessWidget {
       } else if (!_isChordLine(line)) {
         // This line is just lyrics, render them as text
         columnWidgets.add(
-          Text(line, style: const TextStyle(fontSize: STANDARD_FONT_SIZE)),
+          AutoSizeText(
+            line,
+            style: const TextStyle(fontSize: STANDARD_FONT_SIZE),
+            maxLines: 1,
+          ),
         );
       }
 
