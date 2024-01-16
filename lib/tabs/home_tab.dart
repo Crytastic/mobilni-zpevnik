@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:localization/localization.dart';
@@ -7,6 +9,8 @@ import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/handling_stream_builder.dart';
 import 'package:mobilni_zpevnik/widgets/song_list.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
+
+import '../utils/get_random_elements.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -42,7 +46,7 @@ class _HomeTabState extends State<HomeTab> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildSectionHeader('last-played'.i18n()),
-            _buildLastPlayedSection(latestSongs),
+            _buildLastPlayedSection(latestSongs.reversed.take(5).toList()),
           ],
         );
       },
@@ -73,14 +77,23 @@ class _HomeTabState extends State<HomeTab> {
   }
 
   Widget _buildLastPlayedSection(List<Song> lastPlayed) {
-    return SongList(songs: lastPlayed);
+    return SongList(
+      songs: lastPlayed,
+      scrollable: false,
+    );
   }
 
   Widget _buildRecommendedSection() {
     return HandlingStreamBuilder<List<Song>>(
       stream: _songService.songsStream,
       builder: (context, songs) {
-        return SongList(songs: songs);
+        final List<Song> zavisSongs =
+            songs.where((song) => song.artist == "Záviš").toList();
+
+        return SongList(
+          songs: zavisSongs.isEmpty ? songs : getRandomElements(5, zavisSongs),
+          scrollable: false,
+        );
       },
     );
   }

@@ -79,7 +79,7 @@ class SongbookScreen extends StatelessWidget {
               const SmallGap(),
               _buildUserName(),
               const SmallGap(),
-              _buildNumberOfSongs(songbook),
+              _buildNumberOfSongs(context, songbook),
               const SmallGap(),
             ],
           ),
@@ -101,10 +101,12 @@ class SongbookScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNumberOfSongs(Songbook songbook) {
+  Widget _buildNumberOfSongs(BuildContext context, Songbook songbook) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
     return Text(
       '${'number-of-songs'.i18n()}: ${songbook.songs.length}',
-      style: const TextStyle(color: Colors.grey),
+      style: TextStyle(color: colorScheme.onSurface),
     );
   }
 
@@ -144,6 +146,7 @@ class SongbookScreen extends StatelessWidget {
     }
 
     return SongList(
+      scrollable: true,
       songs: songbook.songs,
       canRemoveFromSongbook: true,
       onRemoveFromSongbookTap: (Song song) {

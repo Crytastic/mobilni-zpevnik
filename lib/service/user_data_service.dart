@@ -109,6 +109,6 @@ class UserDataService {
     queue.removeWhere((element) => element['id'] == song.id);
     queue.add(song.toJson());
 
-    await userDataReference.update({'latestSongs': queue.toList().reversed});
+    await userDataReference.update({'latestSongs': queue.toList()});
   }
 }

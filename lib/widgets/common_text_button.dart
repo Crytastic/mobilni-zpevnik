@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CommonTextButton extends StatelessWidget {
-  final text;
-  final onPressed;
+  final String text;
+  final VoidCallback onPressed;
 
   const CommonTextButton({
     super.key,
-    this.text,
-    this.onPressed,
+    required this.text,
+    required this.onPressed,
   });
 
   @override
@@ -16,8 +16,8 @@ class CommonTextButton extends StatelessWidget {
       onTap: onPressed,
       child: Text(
         text,
-        style: const TextStyle(
-          color: Colors.blue,
+        style: TextStyle(
+          color: Theme.of(context).focusColor,
           fontWeight: FontWeight.bold,
         ),
       ),

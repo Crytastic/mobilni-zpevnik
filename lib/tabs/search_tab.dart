@@ -39,7 +39,10 @@ class _SearchTabState extends State<SearchTab> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildSearchBar(),
+        ColoredBox(
+          color: Theme.of(context).colorScheme.background,
+          child: _buildSearchBar(),
+        ),
         Expanded(
           child: SongList(songs: _filteredSongs),
         ),

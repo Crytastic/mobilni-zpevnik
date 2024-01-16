@@ -36,7 +36,7 @@ class BottomSheetMenu extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         const SmallGap(),
-        _buildSwipeIndicator(),
+        _buildSwipeIndicator(context),
         menuHeader,
         const Divider(height: 1),
         for (var option in menuOptions)
@@ -49,12 +49,12 @@ class BottomSheetMenu extends StatelessWidget {
     );
   }
 
-  Widget _buildSwipeIndicator() {
+  Widget _buildSwipeIndicator(BuildContext context) {
     return Container(
       width: 40.0,
       height: 4.0,
       decoration: BoxDecoration(
-        color: Colors.grey,
+        color: Theme.of(context).highlightColor,
         borderRadius: BorderRadius.circular(SMALL_RADIUS),
       ),
     );

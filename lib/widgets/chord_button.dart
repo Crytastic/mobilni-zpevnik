@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobilni_zpevnik/models/chord.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 
 class ChordButton extends StatelessWidget {
@@ -22,40 +23,55 @@ class ChordButton extends StatelessWidget {
   @override
   build(BuildContext context) {
     final bool darkTheme = Theme.of(context).brightness == Brightness.dark;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
     TooltipDirection tooltipDirection =
         down ? TooltipDirection.down : TooltipDirection.up;
 
     return WillPopScope(
-        onWillPop: _willPopCallback,
-        child: TapRegion(
-            onTapOutside: (event) async {
-              await _controller.hideTooltip();
-            },
-            child: SuperTooltip(
-                controller: _controller,
-                showBarrier: false,
-                constraints: const BoxConstraints(
-                    maxWidth: 80, maxHeight: 120, minWidth: 80, minHeight: 120),
-                popupDirection: tooltipDirection,
-                hideTooltipOnTap: true,
-                minimumOutsideMargin: 10,
-                content: Image(
-                    width: 80,
-                    height: 120,
-                    image: Chord(name: chord).getImage(darkTheme)),
-                child: Container(
-                  padding: const EdgeInsets.all(2.0),
-                  color: Colors.white12,
-                  height: 20,
-                  child: Text(
-                    chord,
-                    style: TextStyle(
-                        color: (darkTheme ? Colors.white : Colors.black)),
-                  ),
-                ))));
+      onWillPop: _willPopCallback,
+      child: TapRegion(
+        onTapOutside: (event) async {
+          await _controller.hideTooltip();
+        },
+        child: SuperTooltip(
+          controller: _controller,
+          showBarrier: false,
+          constraints: const BoxConstraints(
+            maxWidth: 80,
+            maxHeight: 120,
+            minWidth: 80,
+            minHeight: 120,
+          ),
+          popupDirection: tooltipDirection,
+          hideTooltipOnTap: true,
+          minimumOutsideMargin: 10,
+          content: Image(
+            width: 80,
+            height: 120,
+            image: Chord(name: chord).getImage(darkTheme),
+          ),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 5.0,
+            ),
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceVariant,
+              borderRadius: BorderRadius.circular(SMALL_RADIUS),
+            ),
+            child: Text(
+              chord,
+              style: TextStyle(
+                fontSize: STANDARD_FONT_SIZE,
+                color: colorScheme.onSurface,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
-  void makeTooltip() {
+  void showTooltip() {
     _controller.showTooltip();
   }
 
