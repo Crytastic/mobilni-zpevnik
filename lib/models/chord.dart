@@ -16,6 +16,6 @@ class Chord {
 
   AssetImage getImage(bool darkTheme) {
     return AssetImage(
-        'images/chords/${darkTheme ? "white" : "black"}/$name.png');
+        'assets/images/chords/${darkTheme ? "white" : "black"}/$name.png');
   }
 }
