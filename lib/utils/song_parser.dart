@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:mobilni_zpevnik/utils/preferences_provider.dart';
 import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/chord_button.dart';
+import 'package:provider/provider.dart';
 
 class SongParser extends StatelessWidget {
   final String songContent;
@@ -10,7 +12,10 @@ class SongParser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return parseLyrics(true);
+    final preferencesProvider =
+        Provider.of<PreferencesProvider>(context, listen: true);
+
+    return parseLyrics(preferencesProvider.preferences.showChords);
   }
 
   bool _isChordLine(String line) {

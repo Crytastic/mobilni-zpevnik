@@ -48,6 +48,12 @@ class UserDataService {
         .map((userData) => userData?.latestSongs ?? []);
   }
 
+  Stream<Preferences> get preferencesStream {
+    return currentUserUserDataStream.map(
+      (userData) => userData?.preferences ?? Preferences(showChords: true),
+    );
+  }
+
   /// Get UserData DocumentReference.
   ///
   /// If it doesn't exist yet, create it and then return it.
@@ -117,6 +123,26 @@ class UserDataService {
     queue.add(song.toJson());
 
     await userDataReference.update({'latestSongs': queue.toList()});
+  }
+
+  Future<Preferences?> getCurrentUserPreferences() async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      if (kDebugMode) {
+        print('User not signed in');
+      }
+      return null;
+    }
+
+    final userDataReference = await _getUserData();
+    if (userDataReference == null) {
+      // UserData creation failed or user not signed in
+      return null;
+    }
+
+    final userDataSnapshot = await userDataReference.get();
+    final preferencesJson = userDataSnapshot['preferences'];
+    return Preferences.fromJson(preferencesJson);
   }
 
   Future<void> updatePreferences(Preferences newPreferences) async {

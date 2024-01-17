@@ -5,12 +5,12 @@ import 'package:mobilni_zpevnik/screens/auth_screen.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
-import 'package:mobilni_zpevnik/service/user_data_service.dart';
 import 'package:mobilni_zpevnik/models/preferences.dart';
+import 'package:mobilni_zpevnik/utils/preferences_provider.dart';
+import 'package:provider/provider.dart';
 
 class PreferencesScreen extends StatelessWidget {
   final _authService = GetIt.I<AuthService>();
-  final _userDataService = GetIt.I<UserDataService>();
 
   PreferencesScreen({super.key});
 
@@ -20,6 +20,9 @@ class PreferencesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final preferencesProvider =
+        Provider.of<PreferencesProvider>(context, listen: true);
+
     return StreamBuilder<User?>(
         stream: _authService.userStream,
         builder: (context, snapshot) {
@@ -32,9 +35,9 @@ class PreferencesScreen extends StatelessWidget {
                 children: [
                   SwitchListTile(
                     title: Text('show-chords'.i18n()),
-                    value: true,
+                    value: preferencesProvider.preferences.showChords,
                     onChanged: (value) {
-                      _userDataService.updatePreferences(
+                      preferencesProvider.updatePreferences(
                         Preferences(
                           showChords: value,
                         ),
