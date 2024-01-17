@@ -1,21 +1,17 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'preferences.g.dart';
+
+@JsonSerializable()
 class Preferences {
-  String id;
-  bool darkmode;
-  String mainInstrument;
   bool showChords;
-  bool simplifiedChords;
-  bool showBAsH;
-  bool showMiAsM;
-  String language;
 
   Preferences({
-    required this.id,
-    required this.darkmode,
-    required this.mainInstrument,
     required this.showChords,
-    required this.simplifiedChords,
-    required this.showBAsH,
-    required this.showMiAsM,
-    required this.language,
   });
+
+  factory Preferences.fromJson(Map<String, dynamic> json) =>
+      _$PreferencesFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PreferencesToJson(this);
 }

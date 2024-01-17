@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:localization/localization.dart';
@@ -9,8 +7,7 @@ import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/handling_stream_builder.dart';
 import 'package:mobilni_zpevnik/widgets/song_list.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
-
-import '../utils/get_random_elements.dart';
+import 'package:mobilni_zpevnik/utils/get_random_elements.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});

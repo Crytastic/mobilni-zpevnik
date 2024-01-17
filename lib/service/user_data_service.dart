@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:collection/collection.dart';
+import 'package:mobilni_zpevnik/models/preferences.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mobilni_zpevnik/models/user_data.dart';
@@ -28,12 +29,14 @@ class UserDataService {
 
   Stream<UserData?> get currentUserUserDataStream {
     return FirebaseAuth.instance.authStateChanges().switchMap((user) {
+      print("currentUserUserDataStream: ${user?.displayName}");
       if (user != null) {
         String currentUserId = user.uid;
         return userDataStream.map((List<UserData> users) {
           UserData? currentUser = users.firstWhereOrNull(
             (userData) => userData.id == currentUserId,
           );
+          print("currentUser: ${currentUser}");
           return currentUser;
         });
       } else {
@@ -68,7 +71,13 @@ class UserDataService {
       print('Creating new UserData for user ID $userId');
     }
 
-    final newUserData = UserData(id: userId, latestSongs: []);
+    final newUserData = UserData(
+      id: userId,
+      latestSongs: [],
+      preferences: Preferences(
+        showChords: true,
+      ),
+    );
     final customDocRef = _userDataCollection.doc(userId);
     await customDocRef.set(newUserData);
 
@@ -110,5 +119,20 @@ class UserDataService {
     queue.add(song.toJson());
 
     await userDataReference.update({'latestSongs': queue.toList()});
+  }
+
+  Future<void> updatePreferences(Preferences newPreferences) async {
+    // Ensure UserData exists, and get its DocumentReference
+    final userDataReference = await _getUserData();
+    if (userDataReference == null) {
+      // UserData creation failed or user not signed in
+      return;
+    }
+
+    if (kDebugMode) {
+      print("Updating preferences. Show chords: ${newPreferences.showChords}.");
+    }
+
+    await userDataReference.update({'preferences': newPreferences.toJson()});
   }
 }

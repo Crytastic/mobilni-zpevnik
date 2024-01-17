@@ -5,9 +5,12 @@ import 'package:mobilni_zpevnik/screens/auth_screen.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
+import 'package:mobilni_zpevnik/service/user_data_service.dart';
+import 'package:mobilni_zpevnik/models/preferences.dart';
 
 class PreferencesScreen extends StatelessWidget {
   final _authService = GetIt.I<AuthService>();
+  final _userDataService = GetIt.I<UserDataService>();
 
   PreferencesScreen({super.key});
 
@@ -28,9 +31,15 @@ class PreferencesScreen extends StatelessWidget {
               body: ListView(
                 children: [
                   SwitchListTile(
-                    title: Text('dark-mode'.i18n()),
+                    title: Text('show-chords'.i18n()),
                     value: true,
-                    onChanged: null,
+                    onChanged: (value) {
+                      _userDataService.updatePreferences(
+                        Preferences(
+                          showChords: value,
+                        ),
+                      );
+                    },
                   ),
                   ListTile(
                     title: Text('logout'.i18n()),

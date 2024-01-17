@@ -46,5 +46,6 @@
   "password-reset-email": "E-mail k obnovení hesla byl odeslán",
   "artist": "Umělec",
   "recommended": "Doporučené",
-  "last-played": "Naposledy hrané"
+  "last-played": "Naposledy hrané",
+  "show-chords": "Ukazovat akordy"
 }

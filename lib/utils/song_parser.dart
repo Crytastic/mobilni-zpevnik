@@ -10,7 +10,7 @@ class SongParser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return parseLyrics();
+    return parseLyrics(true);
   }
 
   bool _isChordLine(String line) {
@@ -39,10 +39,9 @@ class SongParser extends StatelessWidget {
         .toList();
   }
 
-  Widget parseLyrics() {
+  Widget parseLyrics(bool showChords) {
     final List<String> lines = songContent.split("\\n");
     final List<Widget> columnWidgets = [];
-    const bool showChords = true;
 
     for (String line in lines) {
       if (_isChordLine(line) && showChords) {

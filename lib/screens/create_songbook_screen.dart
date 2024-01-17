@@ -24,7 +24,7 @@ class CreateSongbookScreen extends StatelessWidget {
 
     return ScreenTemplate(
       appBar: AppBar(
-        title: const Text('create-songbook'),
+        title: Text('create-songbook'.i18n()),
       ),
       body: Center(
         child: Padding(
@@ -38,6 +38,7 @@ class CreateSongbookScreen extends StatelessWidget {
               CommonTextField(
                 controller: songbookNameController,
                 hintText: 'songbook-name'.i18n(),
+                autofocus: true,
               ),
               const Gap(),
               Row(

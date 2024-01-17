@@ -20,7 +20,7 @@ class CommonSquareButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(SMALL_GAP),
         decoration: BoxDecoration(
-          color: colorScheme.background,
+          color: colorScheme.surfaceVariant,
           borderRadius: BorderRadius.circular(STANDARD_RADIUS),
         ),
         child: Image.asset(
