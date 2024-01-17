@@ -23,7 +23,11 @@ class SongParser extends StatelessWidget {
         notes + accidentals + chords + suspends + sharp + r'\b';
     RegExp chordRegex = RegExp(chordPattern);
 
-    return chordRegex.hasMatch(line);
+    List<String> words = line.split(RegExp('\\s+'))
+        .where((word) => word.isNotEmpty)
+        .toList();
+
+    return words.every((word) => chordRegex.hasMatch(word));
   }
 
   List<String> _splitWordsAndSpaces(String input) {
@@ -40,7 +44,7 @@ class SongParser extends StatelessWidget {
   }
 
   Widget parseLyrics(bool showChords) {
-    final List<String> lines = songContent.split("\\n");
+    final List<String> lines = songContent.split('\\n');
     final List<Widget> columnWidgets = [];
 
     for (String line in lines) {

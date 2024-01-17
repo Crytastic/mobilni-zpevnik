@@ -29,14 +29,12 @@ class UserDataService {
 
   Stream<UserData?> get currentUserUserDataStream {
     return FirebaseAuth.instance.authStateChanges().switchMap((user) {
-      print("currentUserUserDataStream: ${user?.displayName}");
       if (user != null) {
         String currentUserId = user.uid;
         return userDataStream.map((List<UserData> users) {
           UserData? currentUser = users.firstWhereOrNull(
             (userData) => userData.id == currentUserId,
           );
-          print("currentUser: ${currentUser}");
           return currentUser;
         });
       } else {
