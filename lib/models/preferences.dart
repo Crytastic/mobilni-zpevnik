@@ -5,9 +5,13 @@ part 'preferences.g.dart';
 @JsonSerializable()
 class Preferences {
   bool showChords;
+  bool showHAsB;
+  bool showMiAsM;
 
   Preferences({
-    required this.showChords,
+    this.showChords = true,
+    this.showHAsB = false,
+    this.showMiAsM = false,
   });
 
   factory Preferences.fromJson(Map<String, dynamic> json) =>

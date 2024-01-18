@@ -7,7 +7,7 @@ class PreferencesProvider extends ChangeNotifier {
   Preferences _preferences;
   final _userDataService = GetIt.I<UserDataService>();
 
-  PreferencesProvider() : _preferences = Preferences(showChords: true) {
+  PreferencesProvider() : _preferences = Preferences() {
     _initializePreferences();
   }
 
@@ -20,9 +20,18 @@ class PreferencesProvider extends ChangeNotifier {
     });
   }
 
-  void updatePreferences(Preferences newPreferences) {
-    _preferences = newPreferences;
+  void updatePreferences({
+    bool? showChords,
+    bool? showHAsB,
+    bool? showMiAsM,
+  }) {
+    _preferences = Preferences(
+      showChords: showChords ?? _preferences.showChords,
+      showHAsB: showHAsB ?? _preferences.showHAsB,
+      showMiAsM: showMiAsM ?? _preferences.showMiAsM,
+    );
+
     notifyListeners();
-    _userDataService.updatePreferences(newPreferences);
+    _userDataService.updatePreferences(_preferences);
   }
 }

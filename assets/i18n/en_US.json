@@ -47,5 +47,7 @@
   "artist": "Artist",
   "recommended": "Recommended",
   "last-played": "Last played",
-  "show-chords": "Show chords"
+  "show-chords": "Show chords",
+  "show-mi-as-m": "Show Mi as M",
+  "show-h-as-b": "Show H as B"
 }

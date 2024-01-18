@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobilni_zpevnik/models/chord.dart';
 import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
+import 'package:provider/provider.dart';
 import 'package:super_tooltip/super_tooltip.dart';
+import 'package:mobilni_zpevnik/utils/preferences_provider.dart';
 
 class ChordButton extends StatelessWidget {
   final String chord;
@@ -26,6 +28,21 @@ class ChordButton extends StatelessWidget {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     TooltipDirection tooltipDirection =
         down ? TooltipDirection.down : TooltipDirection.up;
+    final preferencesProvider =
+        Provider.of<PreferencesProvider>(context, listen: true);
+
+    String formattedChord() {
+      String formattedChord = chord;
+      if (preferencesProvider.preferences.showHAsB) {
+        formattedChord = chord.replaceAll('H', 'B');
+      }
+
+      if (preferencesProvider.preferences.showMiAsM) {
+        formattedChord = chord.replaceAll('mi', 'm');
+      }
+
+      return formattedChord;
+    }
 
     return WillPopScope(
       onWillPop: _willPopCallback,
@@ -59,7 +76,7 @@ class ChordButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(SMALL_RADIUS),
             ),
             child: Text(
-              chord,
+              formattedChord(),
               style: TextStyle(
                 fontSize: STANDARD_FONT_SIZE,
                 color: colorScheme.onSurface,

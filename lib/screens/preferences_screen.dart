@@ -5,7 +5,6 @@ import 'package:mobilni_zpevnik/screens/auth_screen.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
-import 'package:mobilni_zpevnik/models/preferences.dart';
 import 'package:mobilni_zpevnik/utils/preferences_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -38,9 +37,25 @@ class PreferencesScreen extends StatelessWidget {
                     value: preferencesProvider.preferences.showChords,
                     onChanged: (value) {
                       preferencesProvider.updatePreferences(
-                        Preferences(
-                          showChords: value,
-                        ),
+                        showChords: value,
+                      );
+                    },
+                  ),
+                  SwitchListTile(
+                    title: Text('show-mi-as-m'.i18n()),
+                    value: preferencesProvider.preferences.showMiAsM,
+                    onChanged: (value) {
+                      preferencesProvider.updatePreferences(
+                        showMiAsM: value,
+                      );
+                    },
+                  ),
+                  SwitchListTile(
+                    title: Text('show-h-as-b'.i18n()),
+                    value: preferencesProvider.preferences.showHAsB,
+                    onChanged: (value) {
+                      preferencesProvider.updatePreferences(
+                        showHAsB: value,
                       );
                     },
                   ),

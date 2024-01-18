@@ -50,7 +50,7 @@ class UserDataService {
 
   Stream<Preferences> get preferencesStream {
     return currentUserUserDataStream.map(
-      (userData) => userData?.preferences ?? Preferences(showChords: true),
+      (userData) => userData?.preferences ?? Preferences(),
     );
   }
 
@@ -78,9 +78,7 @@ class UserDataService {
     final newUserData = UserData(
       id: userId,
       latestSongs: [],
-      preferences: Preferences(
-        showChords: true,
-      ),
+      preferences: Preferences(),
     );
     final customDocRef = _userDataCollection.doc(userId);
     await customDocRef.set(newUserData);
@@ -154,7 +152,7 @@ class UserDataService {
     }
 
     if (kDebugMode) {
-      print("Updating preferences. Show chords: ${newPreferences.showChords}.");
+      print("Updating preferences.");
     }
 
     await userDataReference.update({'preferences': newPreferences.toJson()});

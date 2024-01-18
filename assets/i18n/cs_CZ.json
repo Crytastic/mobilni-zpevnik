@@ -47,5 +47,7 @@
   "artist": "Umělec",
   "recommended": "Doporučené",
   "last-played": "Naposledy hrané",
-  "show-chords": "Ukazovat akordy"
+  "show-chords": "Ukazovat akordy",
+  "show-mi-as-m": "Ukazovat Mi namísto M",
+  "show-h-as-b": "Ukazovat H namísto B"
 }
