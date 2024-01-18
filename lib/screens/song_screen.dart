@@ -9,6 +9,9 @@ import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 import 'package:mobilni_zpevnik/widgets/preferences_button.dart';
 
+import '../widgets/bottom_sheet_menu.dart';
+import '../widgets/menu_option.dart';
+
 class SongScreen extends StatelessWidget {
   final Song song;
 
@@ -21,12 +24,35 @@ class SongScreen extends StatelessWidget {
 
     FloatingActionButton buildScrollingButton() {
       return FloatingActionButton(
+        heroTag: "toggleAutoScroll",
         onPressed: autoScrollProvider.toggleAutoScroll,
         child: Icon(
           autoScrollProvider.isScrolling
               ? Icons.stop_rounded
               : Icons.arrow_downward_rounded,
         ),
+      );
+    }
+
+    FloatingActionButton buildAutoScrollIncr(BuildContext context) {
+      return FloatingActionButton(
+        heroTag: "autoScrollIncr",
+        onPressed: () {
+          autoScrollProvider.increaseAutoScrollSpeed();
+        },
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
+        child: const Icon(Icons.fast_forward_rounded),
+      );
+    }
+
+    FloatingActionButton buildAutoScrollDecr(BuildContext context) {
+      return FloatingActionButton(
+        heroTag: "autoScrollDecr",
+        onPressed: () {
+          autoScrollProvider.decreaseAutoScrollSpeed();
+        },
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
+        child: const Icon(Icons.fast_rewind_rounded),
       );
     }
 
@@ -50,7 +76,16 @@ class SongScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: buildScrollingButton(),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          buildAutoScrollIncr(context),
+          const StandardGap(),
+          buildAutoScrollDecr(context),
+          const StandardGap(),
+          buildScrollingButton(),
+        ],
+      ),
     );
   }
 
