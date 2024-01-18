@@ -4,7 +4,7 @@ class ScreenTemplate extends StatelessWidget {
   final PreferredSizeWidget? appBar;
   final Widget? bottomBar;
   final Widget body;
-  final FloatingActionButton? floatingActionButton;
+  final Widget? floatingActionButton;
 
   const ScreenTemplate({
     super.key,

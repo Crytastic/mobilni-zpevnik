@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class AutoScrollProvider extends ChangeNotifier {
   final ScrollController scrollController = ScrollController();
+  int _scrollSpeed = 3;
   bool _autoScrolling = false;
 
   AutoScrollProvider() {
@@ -10,10 +12,17 @@ class AutoScrollProvider extends ChangeNotifier {
   }
 
   void _userScrollListener() {
+    final userScrolling =
+        scrollController.position.userScrollDirection != ScrollDirection.idle;
+    if (userScrolling) {
+      _autoScrolling = false;
+    }
     notifyListeners();
   }
 
   bool get isScrolling => _autoScrolling;
+
+  int get scrollSpeed => _scrollSpeed;
 
   void toggleAutoScroll() {
     if (isScrolling) {
@@ -31,7 +40,11 @@ class AutoScrollProvider extends ChangeNotifier {
     final double currentPosition = scrollController.position.pixels;
     final double positionDelta = endPosition - currentPosition;
     final Duration animDuration =
-        Duration(milliseconds: (positionDelta * 100).round());
+        Duration(milliseconds: (positionDelta / _scrollSpeed).round() * 200);
+
+    if (!scrollController.hasClients) {
+      return;
+    }
 
     await scrollController
         .animateTo(
@@ -40,12 +53,41 @@ class AutoScrollProvider extends ChangeNotifier {
       curve: Curves.linear,
     )
         .then((_) {
-      _autoScrolling = false;
-      notifyListeners();
+      if (scrollController.position.pixels >= endPosition) {
+        _autoScrolling = false;
+        notifyListeners();
+      }
     });
   }
 
   void _stopAutoScroll() {
     scrollController.position.hold(() {});
+  }
+
+  /// Updates auto scroll speed
+  /// Reasonable values are 1-10
+  void updateAutoScrollSpeed(int newSpeed) {
+    _scrollSpeed = newSpeed;
+    if (_autoScrolling) {
+      // restart scroll animation with new speed
+      _stopAutoScroll();
+      _startAutoScroll();
+      _autoScrolling = true;
+      notifyListeners();
+    }
+  }
+
+  /// Increase auto scroll speed
+  void increaseAutoScrollSpeed() {
+    if (_scrollSpeed < 10) {
+      updateAutoScrollSpeed(_scrollSpeed + 1);
+    }
+  }
+
+  /// Decrease auto scroll speed
+  void decreaseAutoScrollSpeed() {
+    if (_scrollSpeed > 1) {
+      updateAutoScrollSpeed(_scrollSpeed - 1);
+    }
   }
 }
