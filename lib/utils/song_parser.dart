@@ -5,8 +5,6 @@ import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/chord_button.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/ui_gaps.dart';
-
 class SongParser extends StatelessWidget {
   final String songContent;
 

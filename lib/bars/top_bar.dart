@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:mobilni_zpevnik/screens/preferences_screen.dart';
+import 'package:mobilni_zpevnik/widgets/preferences_button.dart';
 
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   const TopBar({super.key});
@@ -14,15 +14,8 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
       },
       scrolledUnderElevation: 4.0,
       shadowColor: Theme.of(context).shadowColor,
-      actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.settings),
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => PreferencesScreen()),
-            );
-          },
-        ),
+      actions: const <Widget>[
+        PreferencesButton(),
       ],
     );
   }

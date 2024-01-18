@@ -7,6 +7,7 @@ import 'package:mobilni_zpevnik/utils/song_parser.dart';
 import 'package:provider/provider.dart';
 import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
+import 'package:mobilni_zpevnik/widgets/preferences_button.dart';
 
 class SongScreen extends StatelessWidget {
   final Song song;
@@ -18,9 +19,23 @@ class SongScreen extends StatelessWidget {
     final autoScrollProvider =
         Provider.of<AutoScrollProvider>(context, listen: true);
 
+    FloatingActionButton buildScrollingButton() {
+      return FloatingActionButton(
+        onPressed: autoScrollProvider.toggleAutoScroll,
+        child: Icon(
+          autoScrollProvider.isScrolling
+              ? Icons.stop_rounded
+              : Icons.arrow_downward_rounded,
+        ),
+      );
+    }
+
     return ScreenTemplate(
       appBar: AppBar(
         title: Text(song.name),
+        actions: const <Widget>[
+          PreferencesButton(),
+        ],
       ),
       bottomBar: null,
       body: SingleChildScrollView(
@@ -29,25 +44,22 @@ class SongScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
-              '${'artist'.i18n()}: ${song.artist}',
-              style: const TextStyle(
-                fontSize: STANDARD_FONT_SIZE,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            _buildArtistHeader(),
             const BigGap(),
             SongParser(songContent: song.content),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: autoScrollProvider.toggleAutoScroll,
-        child: Icon(
-          autoScrollProvider.isScrolling
-              ? Icons.stop_rounded
-              : Icons.arrow_downward_rounded,
-        ),
+      floatingActionButton: buildScrollingButton(),
+    );
+  }
+
+  Widget _buildArtistHeader() {
+    return Text(
+      '${'artist'.i18n()}: ${song.artist}',
+      style: const TextStyle(
+        fontSize: STANDARD_FONT_SIZE,
+        fontWeight: FontWeight.bold,
       ),
     );
   }
