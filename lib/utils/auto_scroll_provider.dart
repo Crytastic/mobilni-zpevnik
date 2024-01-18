@@ -70,7 +70,6 @@ class AutoScrollProvider extends ChangeNotifier {
     _scrollSpeed = newSpeed;
     if (_autoScrolling) {
       // restart scroll animation with new speed
-      _stopAutoScroll();
       _startAutoScroll();
       _autoScrolling = true;
       notifyListeners();

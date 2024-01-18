@@ -11,11 +11,17 @@ import 'package:mobilni_zpevnik/widgets/preferences_button.dart';
 
 import '../widgets/bottom_sheet_menu.dart';
 import '../widgets/menu_option.dart';
+import '../widgets/song_trailing_button.dart';
 
 class SongScreen extends StatelessWidget {
   final Song song;
+  final List<MenuOption> songMenuOptions;
 
-  const SongScreen({super.key, required this.song});
+  const SongScreen({
+    super.key,
+    required this.song,
+    required this.songMenuOptions,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,8 @@ class SongScreen extends StatelessWidget {
         onPressed: () {
           autoScrollProvider.increaseAutoScrollSpeed();
         },
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
+        backgroundColor:
+            Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
         child: const Icon(Icons.fast_forward_rounded),
       );
     }
@@ -51,7 +58,8 @@ class SongScreen extends StatelessWidget {
         onPressed: () {
           autoScrollProvider.decreaseAutoScrollSpeed();
         },
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
+        backgroundColor:
+            Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
         child: const Icon(Icons.fast_rewind_rounded),
       );
     }
@@ -59,8 +67,11 @@ class SongScreen extends StatelessWidget {
     return ScreenTemplate(
       appBar: AppBar(
         title: Text(song.name),
-        actions: const <Widget>[
-          PreferencesButton(),
+        actions: <Widget>[
+          SongTrailingButton(
+            song: song,
+            menuOptions: songMenuOptions,
+          ),
         ],
       ),
       bottomBar: null,
