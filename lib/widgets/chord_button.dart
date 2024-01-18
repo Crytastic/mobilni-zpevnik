@@ -87,12 +87,4 @@ class ChordButton extends StatelessWidget {
       ),
     );
   }
-
-  void showTooltip() {
-    _controller.showTooltip();
-  }
-
-  void hideTooltip() {
-    _controller.hideTooltip();
-  }
 }
