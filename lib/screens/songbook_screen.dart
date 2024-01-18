@@ -12,8 +12,7 @@ import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'package:mobilni_zpevnik/widgets/handling_stream_builder.dart';
 import 'package:mobilni_zpevnik/widgets/snack_notification.dart';
-
-import '../utils/shared_ui_constants.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 
 class SongbookScreen extends StatelessWidget {
   final Songbook songbook;

@@ -64,14 +64,14 @@ class ResetPasswordScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Gap(),
+              const BigGap(),
               CommonTextField(
                 controller: emailController,
                 hintText: 'e-mail'.i18n(),
                 obscureText: false,
                 errorText: loginErrorProvider.emailErrorMessage,
               ),
-              const Gap(),
+              const BigGap(),
               CommonButton(
                 onPressed: () {
                   _resetPassword(context, loginErrorProvider);

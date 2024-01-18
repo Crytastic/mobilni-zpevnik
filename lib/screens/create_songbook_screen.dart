@@ -24,7 +24,7 @@ class CreateSongbookScreen extends StatelessWidget {
 
     return ScreenTemplate(
       appBar: AppBar(
-        title: const Text('create-songbook'),
+        title: Text('create-songbook'.i18n()),
       ),
       body: Center(
         child: Padding(
@@ -32,14 +32,15 @@ class CreateSongbookScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Gap(),
+              const BigGap(),
               Text('enter-songbook-name'.i18n()),
-              const Gap(),
+              const BigGap(),
               CommonTextField(
                 controller: songbookNameController,
                 hintText: 'songbook-name'.i18n(),
+                autofocus: true,
               ),
-              const Gap(),
+              const BigGap(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

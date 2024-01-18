@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 
 class CommonButton extends StatelessWidget {
   final String label;
@@ -23,10 +24,19 @@ class CommonButton extends StatelessWidget {
       height: height,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: colorScheme.background,
+          backgroundColor: colorScheme.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(STANDARD_RADIUS),
+          ),
         ),
         onPressed: onPressed,
-        child: Text(label),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: colorScheme.onPrimary,
+          ),
+        ),
       ),
     );
   }

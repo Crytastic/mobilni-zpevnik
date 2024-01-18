@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobilni_zpevnik/screens/songbook_screen.dart';
-import '../models/songbook.dart';
+import 'package:mobilni_zpevnik/models/songbook.dart';
 import 'colored_tile.dart';
 
 class SongbookTile extends StatelessWidget {

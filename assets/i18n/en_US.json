@@ -46,5 +46,8 @@
   "password-reset-email": "Sent e-mail to reset password",
   "artist": "Artist",
   "recommended": "Recommended",
-  "last-played": "Last played"
+  "last-played": "Last played",
+  "show-chords": "Show chords",
+  "show-mi-as-m": "Show Mi as M",
+  "show-h-as-b": "Show H as B"
 }

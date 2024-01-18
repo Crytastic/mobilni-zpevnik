@@ -73,23 +73,23 @@ class LoginScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: SMALL_GAP),
             child: Column(
               children: [
-                const Gap(),
+                const BigGap(),
                 Text('login-directive'.i18n()),
-                const Gap(),
+                const BigGap(),
                 CommonTextField(
                   controller: emailController,
                   hintText: 'e-mail'.i18n(),
                   obscureText: false,
                   errorText: loginErrorProvider.emailErrorMessage,
                 ),
-                const Gap(),
+                const BigGap(),
                 CommonTextField(
                   controller: passwordController,
                   hintText: 'password'.i18n(),
                   obscureText: true,
                   errorText: loginErrorProvider.passwordErrorMessage,
                 ),
-                const Gap(),
+                const BigGap(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -107,16 +107,16 @@ class LoginScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                const Gap(),
+                const BigGap(),
                 CommonButton(
                   onPressed: () {
                     _signUserIn(context, loginErrorProvider);
                   },
                   label: 'sign-in'.i18n(),
                 ),
-                const Gap(),
+                const BigGap(),
                 const CustomDivider(),
-                const Gap(),
+                const BigGap(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -128,7 +128,7 @@ class LoginScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                const Gap(),
+                const BigGap(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

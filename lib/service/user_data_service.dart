@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:collection/collection.dart';
+import 'package:mobilni_zpevnik/models/preferences.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mobilni_zpevnik/models/user_data.dart';
@@ -47,6 +48,12 @@ class UserDataService {
         .map((userData) => userData?.latestSongs ?? []);
   }
 
+  Stream<Preferences> get preferencesStream {
+    return currentUserUserDataStream.map(
+      (userData) => userData?.preferences ?? Preferences(),
+    );
+  }
+
   /// Get UserData DocumentReference.
   ///
   /// If it doesn't exist yet, create it and then return it.
@@ -68,7 +75,11 @@ class UserDataService {
       print('Creating new UserData for user ID $userId');
     }
 
-    final newUserData = UserData(id: userId, latestSongs: []);
+    final newUserData = UserData(
+      id: userId,
+      latestSongs: [],
+      preferences: Preferences(),
+    );
     final customDocRef = _userDataCollection.doc(userId);
     await customDocRef.set(newUserData);
 
@@ -110,5 +121,40 @@ class UserDataService {
     queue.add(song.toJson());
 
     await userDataReference.update({'latestSongs': queue.toList()});
+  }
+
+  Future<Preferences?> getCurrentUserPreferences() async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      if (kDebugMode) {
+        print('User not signed in');
+      }
+      return null;
+    }
+
+    final userDataReference = await _getUserData();
+    if (userDataReference == null) {
+      // UserData creation failed or user not signed in
+      return null;
+    }
+
+    final userDataSnapshot = await userDataReference.get();
+    final preferencesJson = userDataSnapshot['preferences'];
+    return Preferences.fromJson(preferencesJson);
+  }
+
+  Future<void> updatePreferences(Preferences newPreferences) async {
+    // Ensure UserData exists, and get its DocumentReference
+    final userDataReference = await _getUserData();
+    if (userDataReference == null) {
+      // UserData creation failed or user not signed in
+      return;
+    }
+
+    if (kDebugMode) {
+      print("Updating preferences.");
+    }
+
+    await userDataReference.update({'preferences': newPreferences.toJson()});
   }
 }
