@@ -9,7 +9,7 @@ import 'package:mobilni_zpevnik/widgets/colored_tile.dart';
 import 'package:mobilni_zpevnik/widgets/menu_option.dart';
 import 'package:mobilni_zpevnik/service/songbook_service.dart';
 import 'package:mobilni_zpevnik/widgets/snack_notification.dart';
-
+import 'package:mobilni_zpevnik/widgets/song_trailing_button.dart';
 
 class SongTile extends StatelessWidget {
   final Song song;
@@ -72,24 +72,18 @@ class SongTile extends StatelessWidget {
       index: index,
       title: Text(song.name),
       subtitle: Text(song.artist),
-      trailing: GestureDetector(
-        onTap: () {
-          BottomSheetMenu.show(
-            context,
-            ListTile(
-              title: Text(song.name),
-              subtitle: Text(song.artist),
-            ),
-            menuOptions,
-          );
-        },
-        child: const Icon(Icons.more_vert),
+      trailing: SongTrailingButton(
+        song: song,
+        menuOptions: menuOptions,
       ),
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SongScreen(song: song),
+            builder: (context) => SongScreen(
+              song: song,
+              songMenuOptions: menuOptions,
+            ),
           ),
         );
         _userDataService.addToLatestSongs(song);

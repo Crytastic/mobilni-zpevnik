@@ -7,6 +7,8 @@ import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/service/songbook_service.dart';
 import 'package:mobilni_zpevnik/models/songbook.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
+import 'package:mobilni_zpevnik/widgets/common_button.dart';
 import 'package:mobilni_zpevnik/widgets/songbooks_stream_builder.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'package:mobilni_zpevnik/widgets/snack_notification.dart';
@@ -59,11 +61,14 @@ class AddToSongbookScreen extends StatelessWidget {
             children: <Widget>[
               Align(
                 alignment: Alignment.topCenter,
-                child: ListTile(
-                  title: Text('create-new-songbook'.i18n()),
-                  onTap: () {
-                    _openCreateSongbookScreen(context, song);
-                  },
+                child: Padding(
+                  padding: const EdgeInsets.all(SMALL_GAP),
+                  child: CommonButton(
+                    label: 'create-new-songbook'.i18n(),
+                    onPressed: () {
+                      _openCreateSongbookScreen(context, song);
+                    },
+                  ),
                 ),
               ),
               const Divider(

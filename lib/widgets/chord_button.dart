@@ -34,11 +34,11 @@ class ChordButton extends StatelessWidget {
     String formattedChord() {
       String formattedChord = chord;
       if (preferencesProvider.preferences.showHAsB) {
-        formattedChord = chord.replaceAll('H', 'B');
+        formattedChord = formattedChord.replaceAll('H', 'B');
       }
 
       if (preferencesProvider.preferences.showMiAsM) {
-        formattedChord = chord.replaceAll('mi', 'm');
+        formattedChord = formattedChord.replaceAll('mi', 'm');
       }
 
       return formattedChord;

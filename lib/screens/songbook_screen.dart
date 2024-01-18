@@ -55,12 +55,12 @@ class SongbookScreen extends StatelessWidget {
         icon: Icons.delete_rounded,
         title: 'delete-songbook'.i18n(),
         onTap: () {
-          _removeSongbook(songbook);
           Navigator.popUntil(context, (route) => route.isFirst);
           SnackNotification.show(
             context,
             'Deleted ${songbook.name}',
           );
+          _removeSongbook(songbook);
         },
       ),
     ];
