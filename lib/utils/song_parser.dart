@@ -5,6 +5,8 @@ import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/chord_button.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/ui_gaps.dart';
+
 class SongParser extends StatelessWidget {
   final String songContent;
 
@@ -18,7 +20,15 @@ class SongParser extends StatelessWidget {
     return parseLyrics(preferencesProvider.preferences.showChords);
   }
 
+  bool _isEmptyLine(String line) {
+    return line.trim().isEmpty;
+  }
+
   bool _isChordLine(String line) {
+    if (line.trim().isEmpty) {
+      return false;
+    }
+
     const String notes = '[CDEFGABH]';
     const String accidentals = '(b|bb)?';
     const String chords = '(m|mi|maj7|maj|min7|min|sus)?';
@@ -28,11 +38,9 @@ class SongParser extends StatelessWidget {
         notes + accidentals + chords + suspends + sharp + r'\b';
     RegExp chordRegex = RegExp(chordPattern);
 
-    List<String> words = line.split(RegExp('\\s+'))
-        .where((word) => word.isNotEmpty)
-        .toList();
-
-    return words.every((word) => chordRegex.hasMatch(word));
+    List<String?> words =
+        RegExp(r'\S+').allMatches(line).map((match) => match.group(0)).toList();
+    return words.every((word) => chordRegex.hasMatch(word!));
   }
 
   List<String> _splitWordsAndSpaces(String input) {
@@ -53,7 +61,12 @@ class SongParser extends StatelessWidget {
     final List<Widget> columnWidgets = [];
 
     for (String line in lines) {
-      if (_isChordLine(line) && showChords) {
+      if (_isEmptyLine(line)) {
+        // This line is empty, i.e. just a new line
+        columnWidgets.add(
+          const SizedBox(height: NEWLINE_GAP),
+        );
+      } else if (_isChordLine(line) && showChords) {
         // This line contains chords, render them in grey boxes
         columnWidgets.add(
           Row(

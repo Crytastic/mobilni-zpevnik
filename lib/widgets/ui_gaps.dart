@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 
-class Gap extends StatelessWidget {
-  const Gap({super.key});
+class BigGap extends StatelessWidget {
+  const BigGap({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      height: STANDARD_GAP,
+      height: BIG_GAP,
+    );
+  }
+}
+
+class StandardGap extends StatelessWidget {
+  const StandardGap({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      height: NEWLINE_GAP,
     );
   }
 }

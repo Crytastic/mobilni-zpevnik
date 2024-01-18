@@ -76,39 +76,39 @@ class RegisterScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: SMALL_GAP),
             child: Column(
               children: [
-                const Gap(),
+                const BigGap(),
                 Text('register-directive'.i18n()),
-                const Gap(),
+                const BigGap(),
                 CommonTextField(
                   controller: emailController,
                   hintText: 'e-mail'.i18n(),
                   obscureText: false,
                   errorText: loginErrorProvider.emailErrorMessage,
                 ),
-                const Gap(),
+                const BigGap(),
                 CommonTextField(
                   controller: passwordController,
                   hintText: 'password'.i18n(),
                   obscureText: true,
                   errorText: loginErrorProvider.passwordErrorMessage,
                 ),
-                const Gap(),
+                const BigGap(),
                 CommonTextField(
                   controller: confirmPasswordController,
                   hintText: 'confirm-password'.i18n(),
                   obscureText: true,
                   errorText: loginErrorProvider.passwordErrorMessage,
                 ),
-                const Gap(),
+                const BigGap(),
                 CommonButton(
                   onPressed: () {
                     _signUserUp(context, loginErrorProvider);
                   },
                   label: 'sign-up'.i18n(),
                 ),
-                const Gap(),
+                const BigGap(),
                 const CustomDivider(),
-                const Gap(),
+                const BigGap(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -120,7 +120,7 @@ class RegisterScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                const Gap(),
+                const BigGap(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

@@ -36,7 +36,7 @@ class SongScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Gap(),
+            const BigGap(),
             SongParser(songContent: song.content),
           ],
         ),
