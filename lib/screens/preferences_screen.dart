@@ -14,7 +14,7 @@ class PreferencesScreen extends StatelessWidget {
   PreferencesScreen({super.key});
 
   void _signUserOut() {
-    _authService.instance.signOut();
+    _authService.signOut();
   }
 
   @override
