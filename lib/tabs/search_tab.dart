@@ -6,6 +6,9 @@ import 'package:mobilni_zpevnik/service/song_service.dart';
 import 'package:mobilni_zpevnik/widgets/song_list.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
 import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
+
+import '../utils/diacritics_aware_string.dart';
 
 class SearchTab extends StatefulWidget {
   const SearchTab({super.key});
@@ -66,8 +69,14 @@ class _SearchTabState extends State<SearchTab> {
     setState(() {
       _filteredSongs = _songs
           .where((song) =>
-              song.name.toLowerCase().contains(query.toLowerCase()) ||
-              song.artist.toLowerCase().contains(query.toLowerCase()))
+              song.name
+                  .toLowerCase()
+                  .withoutDiacriticalMarks()
+                  .contains(query.toLowerCase()) ||
+              song.artist
+                  .toLowerCase()
+                  .withoutDiacriticalMarks()
+                  .contains(query.toLowerCase()))
           .toList();
     });
   }

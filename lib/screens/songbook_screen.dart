@@ -54,8 +54,9 @@ class SongbookScreen extends StatelessWidget {
       MenuOption(
         icon: Icons.delete_rounded,
         title: 'delete-songbook'.i18n(),
-        onTap: () {
+        onTap: () async {
           Navigator.popUntil(context, (route) => route.isFirst);
+          await Future.delayed(const Duration(milliseconds: 50));
           SnackNotification.show(
             context,
             'Deleted ${songbook.name}',

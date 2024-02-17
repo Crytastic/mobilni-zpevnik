@@ -44,4 +44,20 @@ class AuthService {
       password: password,
     );
   }
+
+  Future<void> signOut() async {
+    if (instance.currentUser != null) {
+      instance.signOut();
+    }
+
+    if (GoogleSignIn().currentUser != null) {
+      await GoogleSignIn().signOut();
+    }
+
+    try {
+      await GoogleSignIn().disconnect();
+    } catch (e) {
+      return;
+    }
+  }
 }
