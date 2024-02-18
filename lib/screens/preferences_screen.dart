@@ -8,6 +8,8 @@ import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'package:mobilni_zpevnik/utils/preferences_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../models/preferences.dart';
+
 class PreferencesScreen extends StatelessWidget {
   final _authService = GetIt.I<AuthService>();
 
@@ -58,6 +60,23 @@ class PreferencesScreen extends StatelessWidget {
                         showHAsB: value,
                       );
                     },
+                  ),
+                  ListTile(
+                    title: Text('color-mode'.i18n()),
+                    trailing: DropdownButton<ThemeMode>(
+                      value: preferencesProvider.preferences.themeMode,
+                      onChanged: (newValue) {
+                        preferencesProvider.updatePreferences(
+                          themeMode: newValue,
+                        );
+                      },
+                      items: ThemeMode.values
+                          .map((ThemeMode mode) => DropdownMenuItem<ThemeMode>(
+                        value: mode,
+                        child: Text(mode.name.i18n()),
+                      ))
+                          .toList(),
+                    ),
                   ),
                   ListTile(
                     title: Text('logout'.i18n()),

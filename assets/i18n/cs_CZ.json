@@ -50,5 +50,9 @@
   "show-chords": "Ukazovat akordy",
   "show-mi-as-m": "Ukazovat Mi namísto M",
   "show-h-as-b": "Ukazovat H namísto B",
-  "unknown-chord": "Promiň, my taky nevíme jak hrát tenhle akord."
+  "unknown-chord": "Promiň, my taky nevíme jak hrát tenhle akord.",
+  "system": "Dle zařízení",
+  "light": "Světlý",
+  "dark": "Tmavý",
+  "color-mode": "Vzhled"
 }

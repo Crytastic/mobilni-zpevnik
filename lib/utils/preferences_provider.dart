@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobilni_zpevnik/models/preferences.dart';
 import 'package:mobilni_zpevnik/service/user_data_service.dart';
@@ -24,11 +25,13 @@ class PreferencesProvider extends ChangeNotifier {
     bool? showChords,
     bool? showHAsB,
     bool? showMiAsM,
+    ThemeMode? themeMode,
   }) {
     _preferences = Preferences(
       showChords: showChords ?? _preferences.showChords,
       showHAsB: showHAsB ?? _preferences.showHAsB,
       showMiAsM: showMiAsM ?? _preferences.showMiAsM,
+      themeMode: themeMode ?? _preferences.themeMode,
     );
 
     notifyListeners();
