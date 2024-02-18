@@ -49,5 +49,6 @@
   "last-played": "Last played",
   "show-chords": "Show chords",
   "show-mi-as-m": "Show Mi as M",
-  "show-h-as-b": "Show H as B"
+  "show-h-as-b": "Show H as B",
+  "unknown-chord": "Sorry, we also don't know how to play this chord."
 }

@@ -18,7 +18,7 @@ class StandardGap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      height: NEWLINE_GAP,
+      height: STANDARD_GAP,
     );
   }
 }

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Chord {
   String name;
 
@@ -8,14 +6,5 @@ class Chord {
   }) {
     name = name.replaceAll("mi", 'm');
     name = name.replaceAll("H", 'B');
-  }
-
-  String getChordName() {
-    return name;
-  }
-
-  AssetImage getImage(bool darkTheme) {
-    return AssetImage(
-        'assets/images/chords/${darkTheme ? "white" : "black"}/$name.png');
   }
 }
