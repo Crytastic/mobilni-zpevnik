@@ -6,9 +6,8 @@ import 'package:mobilni_zpevnik/service/song_service.dart';
 import 'package:mobilni_zpevnik/widgets/song_list.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
 import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
-import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 
-import '../utils/diacritics_aware_string.dart';
+import 'package:mobilni_zpevnik/utils/diacritics_aware_string.dart';
 
 class SearchTab extends StatefulWidget {
   const SearchTab({super.key});

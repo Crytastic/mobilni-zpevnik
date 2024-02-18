@@ -7,11 +7,8 @@ import 'package:mobilni_zpevnik/utils/song_parser.dart';
 import 'package:provider/provider.dart';
 import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
-import 'package:mobilni_zpevnik/widgets/preferences_button.dart';
-
-import '../widgets/bottom_sheet_menu.dart';
-import '../widgets/menu_option.dart';
-import '../widgets/song_trailing_button.dart';
+import 'package:mobilni_zpevnik/widgets/menu_option.dart';
+import 'package:mobilni_zpevnik/widgets/song_trailing_button.dart';
 
 class SongScreen extends StatelessWidget {
   final Song song;

@@ -5,6 +5,8 @@ import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/chord_button.dart';
 import 'package:provider/provider.dart';
 
+import 'package:mobilni_zpevnik/models/chord.dart';
+
 class SongParser extends StatelessWidget {
   final String songContent;
 
@@ -49,7 +51,7 @@ class SongParser extends StatelessWidget {
   List<Widget> _parseChordLine(String line, bool down) {
     return _splitWordsAndSpaces(line)
         .map((String part) => part.contains(RegExp(r'\S'))
-            ? ChordButton(chord: part)
+            ? ChordButton(chord: Chord(name: part))
             : Text(part))
         .toList();
   }
