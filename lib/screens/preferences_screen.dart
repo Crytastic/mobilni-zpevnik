@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:localization/localization.dart';
@@ -8,8 +9,6 @@ import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'package:mobilni_zpevnik/utils/preferences_provider.dart';
 import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:provider/provider.dart';
-
-import '../models/preferences.dart';
 
 class PreferencesScreen extends StatelessWidget {
   final _authService = GetIt.I<AuthService>();
@@ -22,6 +21,7 @@ class PreferencesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final preferencesProvider =
         Provider.of<PreferencesProvider>(context, listen: true);
 
@@ -64,7 +64,7 @@ class PreferencesScreen extends StatelessWidget {
                   ),
                   ListTile(
                     title: Text('color-mode'.i18n()),
-                    trailing: DropdownButton<ThemeMode>(
+                    trailing: DropdownButton2<ThemeMode>(
                       value: preferencesProvider.preferences.themeMode,
                       onChanged: (newValue) {
                         preferencesProvider.updatePreferences(
@@ -77,7 +77,21 @@ class PreferencesScreen extends StatelessWidget {
                                 child: Text(mode.name.i18n()),
                               ))
                           .toList(),
-                      borderRadius: BorderRadius.circular(SMALL_RADIUS),
+                      buttonStyleData: ButtonStyleData(
+                        width: 120,
+                        padding: const EdgeInsets.only(
+                            left: SMALL_GAP, right: SMALL_GAP),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(STANDARD_RADIUS),
+                        ),
+                      ),
+                      dropdownStyleData: DropdownStyleData(
+                        width: 120,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(STANDARD_RADIUS),
+                          color: colorScheme.surfaceVariant,
+                        ),
+                      ),
                     ),
                   ),
                   ListTile(
