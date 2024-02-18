@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'package:mobilni_zpevnik/utils/preferences_provider.dart';
 import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
+import 'package:mobilni_zpevnik/widgets/common_dropdown_button.dart';
 import 'package:provider/provider.dart';
 
 class PreferencesScreen extends StatelessWidget {
@@ -64,7 +65,7 @@ class PreferencesScreen extends StatelessWidget {
                   ),
                   ListTile(
                     title: Text('color-mode'.i18n()),
-                    trailing: DropdownButton2<ThemeMode>(
+                    trailing: CommonDropdownButton<ThemeMode>(
                       value: preferencesProvider.preferences.themeMode,
                       onChanged: (newValue) {
                         preferencesProvider.updatePreferences(
@@ -77,21 +78,6 @@ class PreferencesScreen extends StatelessWidget {
                                 child: Text(mode.name.i18n()),
                               ))
                           .toList(),
-                      buttonStyleData: ButtonStyleData(
-                        width: 120,
-                        padding: const EdgeInsets.only(
-                            left: SMALL_GAP, right: SMALL_GAP),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(STANDARD_RADIUS),
-                        ),
-                      ),
-                      dropdownStyleData: DropdownStyleData(
-                        width: 120,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(STANDARD_RADIUS),
-                          color: colorScheme.surfaceVariant,
-                        ),
-                      ),
                     ),
                   ),
                   ListTile(
