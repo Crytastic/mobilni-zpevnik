@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:localization/localization.dart';
@@ -6,6 +7,8 @@ import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'package:mobilni_zpevnik/utils/preferences_provider.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
+import 'package:mobilni_zpevnik/widgets/common_dropdown_button.dart';
 import 'package:provider/provider.dart';
 
 class PreferencesScreen extends StatelessWidget {
@@ -19,6 +22,7 @@ class PreferencesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final preferencesProvider =
         Provider.of<PreferencesProvider>(context, listen: true);
 
@@ -58,6 +62,23 @@ class PreferencesScreen extends StatelessWidget {
                         showHAsB: value,
                       );
                     },
+                  ),
+                  ListTile(
+                    title: Text('color-mode'.i18n()),
+                    trailing: CommonDropdownButton<ThemeMode>(
+                      value: preferencesProvider.preferences.themeMode,
+                      onChanged: (newValue) {
+                        preferencesProvider.updatePreferences(
+                          themeMode: newValue,
+                        );
+                      },
+                      items: ThemeMode.values
+                          .map((ThemeMode mode) => DropdownMenuItem<ThemeMode>(
+                                value: mode,
+                                child: Text(mode.name.i18n()),
+                              ))
+                          .toList(),
+                    ),
                   ),
                   ListTile(
                     title: Text('logout'.i18n()),

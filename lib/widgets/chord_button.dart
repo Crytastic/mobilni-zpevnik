@@ -12,7 +12,6 @@ class ChordButton extends StatelessWidget {
 
   @override
   build(BuildContext context) {
-    final Chord chordObject;
     final bool darkTheme = Theme.of(context).brightness == Brightness.dark;
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final preferencesProvider =
