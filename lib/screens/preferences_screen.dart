@@ -6,6 +6,7 @@ import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'package:mobilni_zpevnik/utils/preferences_provider.dart';
+import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:provider/provider.dart';
 
 import '../models/preferences.dart';
@@ -72,10 +73,11 @@ class PreferencesScreen extends StatelessWidget {
                       },
                       items: ThemeMode.values
                           .map((ThemeMode mode) => DropdownMenuItem<ThemeMode>(
-                        value: mode,
-                        child: Text(mode.name.i18n()),
-                      ))
+                                value: mode,
+                                child: Text(mode.name.i18n()),
+                              ))
                           .toList(),
+                      borderRadius: BorderRadius.circular(SMALL_RADIUS),
                     ),
                   ),
                   ListTile(
