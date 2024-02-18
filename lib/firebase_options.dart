@@ -70,6 +70,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '506092231511',
     projectId: 'mobilni-zpevnik',
     storageBucket: 'mobilni-zpevnik.appspot.com',
-    iosBundleId: 'com.example.mobilniZpevnik',
+    iosBundleId: 'com.mobilniZpevnik',
   );
 }
