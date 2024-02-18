@@ -1,6 +1,6 @@
 // Gaps, padding
 const BIG_GAP = 24.0;
-const NEWLINE_GAP = 16.0;
+const STANDARD_GAP = 16.0;
 const SMALL_GAP = 8.0;
 
 // Radii
