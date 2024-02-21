@@ -153,6 +153,7 @@ class UserDataService {
 
     if (kDebugMode) {
       print("Updating preferences.");
+      print(newPreferences.toJson());
     }
 
     await userDataReference.update({'preferences': newPreferences.toJson()});

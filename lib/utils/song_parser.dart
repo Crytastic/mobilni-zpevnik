@@ -4,8 +4,8 @@ import 'package:mobilni_zpevnik/utils/preferences_provider.dart';
 import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/chord_button.dart';
 import 'package:provider/provider.dart';
-
 import 'package:mobilni_zpevnik/models/chord.dart';
+import 'package:mobilni_zpevnik/models/preferences.dart';
 
 class SongParser extends StatelessWidget {
   final String songContent;
@@ -17,7 +17,7 @@ class SongParser extends StatelessWidget {
     final preferencesProvider =
         Provider.of<PreferencesProvider>(context, listen: true);
 
-    return parseLyrics(preferencesProvider.preferences.showChords);
+    return parseLyrics(preferencesProvider.preferences);
   }
 
   bool _isEmptyLine(String line) {
@@ -48,15 +48,22 @@ class SongParser extends StatelessWidget {
     return pattern.allMatches(input).map((match) => match.group(0)!).toList();
   }
 
-  List<Widget> _parseChordLine(String line, bool down) {
+  List<Widget> _parseChordLine(
+      String line, Preferences preferences, bool down) {
     return _splitWordsAndSpaces(line)
         .map((String part) => part.contains(RegExp(r'\S'))
             ? ChordButton(chord: Chord(name: part))
-            : Text(part))
+            : Text(
+                part,
+                style: TextStyle(
+                  fontSize: STANDARD_FONT_SIZE,
+                  fontFamily: preferences.fontFamily,
+                ),
+              ))
         .toList();
   }
 
-  Widget parseLyrics(bool showChords) {
+  Widget parseLyrics(Preferences preferences) {
     final List<String> lines = songContent.split('\\n');
     final List<Widget> columnWidgets = [];
 
@@ -66,11 +73,15 @@ class SongParser extends StatelessWidget {
         columnWidgets.add(
           const SizedBox(height: STANDARD_GAP),
         );
-      } else if (_isChordLine(line) && showChords) {
+      } else if (_isChordLine(line) && preferences.showChords) {
         // This line contains chords, render them in grey boxes
         columnWidgets.add(
           Row(
-            children: _parseChordLine(line, columnWidgets.length < 5),
+            children: _parseChordLine(
+              line,
+              preferences,
+              columnWidgets.length < 5,
+            ),
           ),
         );
       } else if (!_isChordLine(line)) {
@@ -78,7 +89,10 @@ class SongParser extends StatelessWidget {
         columnWidgets.add(
           AutoSizeText(
             line,
-            style: const TextStyle(fontSize: STANDARD_FONT_SIZE),
+            style: TextStyle(
+              fontSize: STANDARD_FONT_SIZE,
+              fontFamily: preferences.fontFamily,
+            ),
             maxLines: 1,
           ),
         );

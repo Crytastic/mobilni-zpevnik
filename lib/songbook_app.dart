@@ -4,6 +4,7 @@ import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/utils/preferences_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:mobilni_zpevnik/screens/main_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SongbookApp extends StatelessWidget {
   const SongbookApp({super.key});
@@ -33,8 +34,14 @@ class SongbookApp extends StatelessWidget {
 
         return const Locale('en', 'US');
       },
-      theme: ThemeData.light(useMaterial3: true),
-      darkTheme: ThemeData.dark(useMaterial3: true),
+      theme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.light,
+      ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+      ),
       themeMode: preferencesProvider.preferences.themeMode,
       home: const MainScreen(),
     );

@@ -54,5 +54,6 @@
   "system": "Dle zařízení",
   "light": "Světlý",
   "dark": "Tmavý",
-  "color-mode": "Vzhled"
+  "color-mode": "Vzhled",
+  "lyrics-font": "Font textu písní"
 }

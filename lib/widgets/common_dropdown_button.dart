@@ -25,14 +25,14 @@ class CommonDropdownButton<T> extends StatelessWidget {
       },
       items: items,
       buttonStyleData: ButtonStyleData(
-        width: 120,
+        width: 170,
         padding: const EdgeInsets.only(left: SMALL_GAP, right: SMALL_GAP),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(STANDARD_RADIUS),
         ),
       ),
       dropdownStyleData: DropdownStyleData(
-        width: 120,
+        width: 170,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(STANDARD_RADIUS),
           color: colorScheme.surfaceVariant,

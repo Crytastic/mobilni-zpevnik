@@ -54,5 +54,6 @@
   "system": "Default",
   "light": "Light",
   "dark": "Dark",
-  "color-mode": "Color mode"
+  "color-mode": "Color mode",
+  "lyrics-font": "Song lyrics font"
 }

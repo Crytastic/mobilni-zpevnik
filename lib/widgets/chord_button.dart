@@ -87,6 +87,8 @@ class ChordButton extends StatelessWidget {
           formattedChord(),
           style: TextStyle(
             fontSize: STANDARD_FONT_SIZE,
+            fontFamily: preferencesProvider.preferences.fontFamily,
+            fontWeight: FontWeight.bold,
             color: colorScheme.onSurface,
           ),
         ),

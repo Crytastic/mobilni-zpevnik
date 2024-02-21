@@ -26,12 +26,14 @@ class PreferencesProvider extends ChangeNotifier {
     bool? showHAsB,
     bool? showMiAsM,
     ThemeMode? themeMode,
+    String? fontFamily,
   }) {
     _preferences = Preferences(
       showChords: showChords ?? _preferences.showChords,
       showHAsB: showHAsB ?? _preferences.showHAsB,
       showMiAsM: showMiAsM ?? _preferences.showMiAsM,
       themeMode: themeMode ?? _preferences.themeMode,
+      fontFamily: fontFamily ?? _preferences.fontFamily,
     );
 
     notifyListeners();

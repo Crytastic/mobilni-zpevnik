@@ -1,4 +1,3 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:localization/localization.dart';
@@ -7,9 +6,9 @@ import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobilni_zpevnik/service/auth_service.dart';
 import 'package:mobilni_zpevnik/utils/preferences_provider.dart';
-import 'package:mobilni_zpevnik/utils/shared_ui_constants.dart';
 import 'package:mobilni_zpevnik/widgets/common_dropdown_button.dart';
 import 'package:provider/provider.dart';
+import 'package:mobilni_zpevnik/utils/supported_fonts.dart';
 
 class PreferencesScreen extends StatelessWidget {
   final _authService = GetIt.I<AuthService>();
@@ -22,7 +21,6 @@ class PreferencesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final preferencesProvider =
         Provider.of<PreferencesProvider>(context, listen: true);
 
@@ -78,6 +76,37 @@ class PreferencesScreen extends StatelessWidget {
                                 child: Text(mode.name.i18n()),
                               ))
                           .toList(),
+                    ),
+                  ),
+                  ListTile(
+                    title: Text('lyrics-font'.i18n()),
+                    trailing: CommonDropdownButton<String>(
+                      value: preferencesProvider.preferences.fontFamily,
+                      onChanged: (newValue) {
+                        preferencesProvider.updatePreferences(
+                          fontFamily: newValue,
+                        );
+                      },
+                      items: [
+                        DropdownMenuItem(
+                          value: robotoFontFamily,
+                          child: Text(
+                            'Roboto',
+                            style: TextStyle(
+                              fontFamily: robotoFontFamily,
+                            ),
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: cousineFontFamily,
+                          child: Text(
+                            'Cousine',
+                            style: TextStyle(
+                              fontFamily: cousineFontFamily,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   ListTile(

@@ -49,6 +49,7 @@ dependencies:
   rxdart: ^0.27.2
   auto_size_text: ^3.0.0
   dropdown_button2: ^2.3.9
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:
